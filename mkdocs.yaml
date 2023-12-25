@@ -1,4 +1,10 @@
 site_name: Tobas
-nav:
-  - Home: index.md
 theme: readthedocs
+nav:
+  - Introduction: introduction.md
+  - Getting Started:
+      - Model Drone: model_drone.md
+      - Create URDF: create_urdf.md
+      - Setup Assistant: setup_assistant.md
+      - Gazebo Simulation: gazebo_simulation.md
+      - Flight Test: flight_test.md
