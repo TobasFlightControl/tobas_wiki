@@ -6,7 +6,7 @@
 
 ```bash
 $ cd tobas_wiki/
-$ mkdocs serve
+$ mkdocs serve  # or add prefix "python -m"
 ```
 
 2. [ローカル上のウェブサービス](http://127.0.0.1:8000/)を開く
