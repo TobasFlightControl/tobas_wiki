@@ -1,7 +1,8 @@
 # Tobas ユーザガイド
 
 Tobas は，高度な機能を持つドローンの開発を促進するために作られた，ドローン開発支援ツールです．
-URDF を元に詳細なモデル化を行うため，制御性能を向上させ，従来のフライトコントローラでは飛ばせないようなドローンでも飛ばすことができます．
+<a href=http://forestofazumino.web.fc2.com/ros/ros_urdf_xacro.html target="_blank">URDF (Unified Robot Description Format)</a>
+を元に詳細なモデル化を行うため，制御性能を向上させ，従来のフライトコントローラでは飛ばせないようなドローンでも飛ばすことができます．
 
 ## 特徴
 
