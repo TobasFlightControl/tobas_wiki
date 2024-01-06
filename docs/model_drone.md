@@ -48,7 +48,7 @@ Gazebo (物理シミュレータ) と同じく，ENU 座標系 (X 軸を前，Y 
 ### プロペラのモデリング
 
 キットに付属している<a href=https://www.amazon.co.jp/DJI-%E3%83%89%E3%83%AD%E3%83%BC%E3%83%B3%E7%94%A8%E3%83%97%E3%83%AD%E3%83%9A%E3%83%A9-2%E6%9E%9A%E7%B5%84-PHANTOM-Part9/dp/B00YOB2AXQ/ref=sr_1_7_sspa?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=28BXMOF90YJXG&keywords=phantom3+9450&qid=1704516647&s=toys&sprefix=phantom3+9450%2Ctoys%2C160&sr=1-7-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1&smid=A1MUI7UFGML151 target="\_blank"> Phantom3 9450</a>を使用します．
-<a href=https://grabcad.com>GrabCAD</a>から良さげなモデルをダウンロードし，Fusion360 にインポートします．
+<a href=https://grabcad.com target="_blank">GrabCAD</a>から良さげなモデルをダウンロードし，Fusion360 にインポートします．
 最終的なアセンブリを見越して回転軸が Z 軸に一致するように配置し，材質を ABS に設定します．
 プロパティを見ると質量が約 10g になっており，実物と概ね一致することが確認できました．
 画像は時計回りですが，反時計回りのプロペラについても同様の操作を行います．
