@@ -42,4 +42,9 @@ $ ./lib/tobas_setup/install_prereqs_ubuntu.sh
 
 ---
 
+フライトコントローラとして，現時点では
+<a href=https://www.raspberrypi.com/products/raspberry-pi-4-model-b/ target="_blank">Raspberry Pi Model 4B</a>と
+<a href=https://navio2.hipi.io/ target="_blank">Navio2</a>でのみ動作確認をしています．
+今後はリアルタイム性や冗長性をもち，より信頼性の高いハードウェアへの対応を進めていく予定です．
+
 TODO: tobas-x.x.x がインストールされた Raspbian イメージをマイクロ SD に書き込む
