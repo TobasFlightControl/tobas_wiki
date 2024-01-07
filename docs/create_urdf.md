@@ -2,7 +2,7 @@
 
 前ページで作成した CAD モデルを元に URDF (Unified Robot Description Format, ロボット記述言語) を作成します．
 URDF は剛体多リンク系のリンク構造や質量特性等を XML 形式で記述したものです．
-今回は以下のような URDF を作成します．
+今回は以下のような URDF を作成します:
 
 ```xml
 <robot name="f450">
@@ -193,7 +193,7 @@ frame, battery, propeller といったリンクと，それらを繋ぐジョイ
 URDF の作成方法としては，エディタを用いて直接編集することが一般的ですが，
 今回は GUI で URDF が作成できるツールである URDF Builder を使用します．
 
-ターミナルから URDF を起動します:
+ターミナルから URDF Builder を起動します:
 
 ```bash
 $ roslaunch urdf_builder urdf_builder.launch
