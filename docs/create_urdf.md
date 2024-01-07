@@ -379,5 +379,6 @@ LiPo バッテリーはほぼ直方体なので，メッシュファイルは使
 
 `Save`または`Save As`ボタンを押すとダイアログが表示されます．
 適当な名前を設定し，`Save`ボタンを押して URDF を保存します．
+保存できたら URDF Builder は閉じて構いません．
 
 ![save](resources/create_urdf/save.png)
