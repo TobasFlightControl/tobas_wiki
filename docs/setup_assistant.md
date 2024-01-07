@@ -6,8 +6,8 @@
 
 ---
 
-Tobas Setup Assistant ではユーザの機体で Tobas を使用するのに必要な設定をまとめた ROS パッケージを作成します．
-それを使うためには catkin ワークスペースが必要であり，それは以下のコマンドで作成できます:
+Tobas Setup Assistant ではユーザの機体で Tobas を使用するのに必要な設定ファイルをまとめた ROS パッケージを作成します．
+それを使うためには catkin ワークスペースが必要であり，以下のコマンドで作成できます:
 
 ```bash
 $ mkdir -p ~/catkin_ws/src
