@@ -5,7 +5,187 @@ URDF は剛体多リンク系のリンク構造や質量特性等を XML 形式�
 今回は以下のような URDF を作成します．
 
 ```xml
-TODO: 完成したURDF
+<robot name="f450">
+  <material name="material_-492512390">
+    <color rgba="1 1 1 0.7" />
+  </material>
+  <material name="material_-496767138">
+    <color rgba="0 0 1 0.7" />
+  </material>
+  <material name="material_-510938680">
+    <color rgba="0 0 0 0.7" />
+  </material>
+  <link name="battery">
+    <inertial>
+      <mass value="0.186" />
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <inertia ixx="0.000294655" ixy="0" ixz="0" iyy="0.00184636" iyz="0" izz="0.00193145" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <geometry>
+        <box size="0.106 0.035 0.026" />
+      </geometry>
+      <material name="material_-496767138">
+        <color rgba="0 0 1 0.7" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <geometry>
+        <box size="0.106 0.035 0.026" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="frame">
+    <inertial>
+      <mass value="0.635" />
+      <origin xyz="0.001573 -0.000596 -0.003436" rpy="0 -0 0" />
+      <inertia ixx="0.009613" ixy="6e-06" ixz="4.8e-05" iyy="0.009072" iyz="4e-06" izz="0.01867" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <geometry>
+        <mesh filename="file:///home/dohi/Downloads/frame.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="material_-510938680">
+        <color rgba="0 0 0 0.7" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.008" rpy="0 -0 0" />
+      <geometry>
+        <box size="0.35 0.35 0.1" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="propeller1">
+    <inertial>
+      <mass value="0.012" />
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <inertia ixx="0.00046975" ixy="0" ixz="0" iyy="0.00046975" iyz="0" izz="9.375e-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <geometry>
+        <mesh filename="file:///home/dohi/Downloads/phantom3_0945_ccw.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="material_-492512390">
+        <color rgba="1 1 1 0.7" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <geometry>
+        <cylinder radius="0.125" length="0.01" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="propeller1_1">
+    <inertial>
+      <mass value="0.012" />
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <inertia ixx="0.00046975" ixy="0" ixz="0" iyy="0.00046975" iyz="0" izz="9.375e-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <geometry>
+        <mesh filename="file:///home/dohi/Downloads/phantom3_0945_ccw.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="material_-492512390">
+        <color rgba="1 1 1 0.7" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <geometry>
+        <cylinder radius="0.125" length="0.01" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="propeller1_2">
+    <inertial>
+      <mass value="0.012" />
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <inertia ixx="0.00046975" ixy="0" ixz="0" iyy="0.00046975" iyz="0" izz="9.375e-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <geometry>
+        <mesh filename="file:///home/dohi/Downloads/phantom3_0945_cw.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="material_-492512390">
+        <color rgba="1 1 1 0.7" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <geometry>
+        <cylinder radius="0.125" length="0.01" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="propeller1_3">
+    <inertial>
+      <mass value="0.012" />
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <inertia ixx="0.00046975" ixy="0" ixz="0" iyy="0.00046975" iyz="0" izz="9.375e-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+      <geometry>
+        <mesh filename="file:///home/dohi/Downloads/phantom3_0945_cw.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="material_-492512390">
+        <color rgba="1 1 1 0.7" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.004" rpy="0 -0 0" />
+      <geometry>
+        <cylinder radius="0.125" length="0.01" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="root" />
+  <joint name="battery_joint" type="fixed">
+    <origin xyz="-0.035 0 -0.024" rpy="0 -0 0" />
+    <axis xyz="0 0 0" />
+    <parent link="frame" />
+    <child link="battery" />
+  </joint>
+  <joint name="frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0" />
+    <axis xyz="0 0 0" />
+    <parent link="root" />
+    <child link="frame" />
+    <limit effort="0" velocity="0" lower="0" upper="0" />
+  </joint>
+  <joint name="propeller1_joint" type="continuous">
+    <origin xyz="0.16 -0.16 0.024" rpy="0 0 -0.7854" />
+    <axis xyz="0 0 1" />
+    <parent link="frame" />
+    <child link="propeller1" />
+  </joint>
+  <joint name="propeller1_joint_1" type="continuous">
+    <origin xyz="-0.16 0.16 0.024" rpy="0 0 -0.7854" />
+    <axis xyz="0 0 1" />
+    <parent link="frame" />
+    <child link="propeller1_1" />
+  </joint>
+  <joint name="propeller1_joint_2" type="continuous">
+    <origin xyz="0.16 0.16 0.024" rpy="0 -0 0.7854" />
+    <axis xyz="0 0 1" />
+    <parent link="frame" />
+    <child link="propeller1_2" />
+  </joint>
+  <joint name="propeller1_joint_3" type="continuous">
+    <origin xyz="-0.16 -0.16 0.024" rpy="0 -0 0.7854" />
+    <axis xyz="0 0 1" />
+    <parent link="frame" />
+    <child link="propeller1_3" />
+  </joint>
+</robot>
 ```
 
 frame, battery, propeller といったリンクと，それらを繋ぐジョイントが定義されていることがわかります．
