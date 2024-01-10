@@ -232,8 +232,7 @@ $ roslaunch urdf_builder urdf_builder.launch
 `Joint`タブではジョイントの設定を行います．
 `Name`には先程設定したジョイント名が記述されています．
 `Parent`には先程設定した`root`が選択されています．
-`frame`は`root`に固定された基準のリンクとするため，`Type`には`Fixed`を選択し，
-`Origin`，`Axis`，`Dynamics`は全て 0 にします．
+`frame`は`root`に固定された基準のリンクとするため，`Type`には`Fixed`を選択し，`Origin`を原点に設定します．
 
 ![frame/joint](resources/create_urdf/frame/joint.png)
 
