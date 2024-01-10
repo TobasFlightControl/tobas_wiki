@@ -8,6 +8,9 @@ nav:
       - Create URDF: create_urdf.md
       - Setup Assistant: setup_assistant.md
       - Gazebo Simulation: gazebo_simulation.md
+      - Hardware Setup: hardware_setup.md
       - Flight Test: flight_test.md
   - For Developers:
       - ROS API: ros_api.md
+  - Additional Information:
+    - Trouble Shooting: trouble_shooting.md
