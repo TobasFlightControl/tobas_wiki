@@ -139,7 +139,15 @@ $ roslaunch tobas_motor_test motors_handler.launch
 外部 PC で以下を実行してください:
 
 ```bash
+$ export ROS_MASTER_URI=http://(ラズパイのIPアドレス):11311  # e.g. export ROS_MASTER_URI=http://192.168.1.1:11311
 $ roslaunch tobas_motor_test motor_test_gui.launch
+```
+
+ラズパイの IP アドレスは以下のコマンドで取得できます:
+
+```bash
+$ hostname -I
+>> 192.168.1.1
 ```
 
 全てのモータについて以下の点を確認してください:
