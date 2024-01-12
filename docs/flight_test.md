@@ -19,5 +19,5 @@ HIL と同様に，プロポの E_STOP (CH5) を一度オンにしてからオ�
 <span style="color: red;"><strong>E_STOP をもう一度オンにすると緊急停止となり，全てのモータが停止するため注意してください．</strong></span>
 プロポのピッチレバーは南北 ，ロールレバーは東西，スロットルレバーは上下の速度にそれぞれ対応しています．
 
-<!-- YouTubeの「共有」-> 「埋め込む」で埋め込み用のタグを取得できる -->
 <iframe width="560" height="315" src="https://www.youtube.com/embed/EldjS8AnBjw?si=mdp2SFPWEta51UOP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<br>

@@ -53,7 +53,24 @@ Tobas は，高度な機能を持つドローンの開発を促進するため�
 
 ---
 
-TODO
+### クアッドコプター
+
+典型的なクアッドコプターです．
+DJI F450 のフレームキットを使用しています．
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EldjS8AnBjw?si=mdp2SFPWEta51UOP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<br>
+
+### 非平面ロータ配置ヘキサコプター
+
+全てのプロペラが水平面から 30 度傾いているヘキサコプターです．
+平面ロータ配置のマルチコプターは位置を変化させるために姿勢を変化させる必要があるのに対し，
+非平面ロータ配置マルチコプターは位置と姿勢を独立に制御することができます．
+そのため，地面と平行の姿勢を保ったまま平行移動したり，ホバリングしたまま姿勢を変化させることができます．
+また，直接水平方向に推力を発生させられるため位置決め精度が高く，耐風性能にも優れています．
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1RIXLGmx1RA?si=ADkOlZsAMb1tHyNr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<br>
 
 ## 前提知識
 
