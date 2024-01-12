@@ -31,14 +31,14 @@ ESC のピン番号の設定は`tobas_f450_config/config/f450.tbsf`の`rotor_x/p
 例えば<a href=https://docs.emlid.com/navio2/hardware-setup/#anti-vibration-mount>Anti-vibration mount | Navio2</a>
 を 3D プリントして使うことができます．
 
-## ラズパイの WiFi 設定
+## ネットワーク設定
 
 ---
 
-最初は WiFi に接続できないため，ラズパイをディスプレイ，キーボード，マウスに接続してから電源を入れます．
+ラズパイをディスプレイ，キーボード，マウスに接続してから電源を入れます．
 初期パスワードである`raspberry`を入力してログインしてください．
 
-`/boot/wpa_supplicant.conf`に WiFi の SSID とパスワードを入力します．
+`/boot/wpa_supplicant.conf`にネットワークの SSID とパスワードを入力します．
 以下のように 1 つ以上の`network`を定義してください．
 `ssid`が SSID，`psk`がパスワードです．
 複数のネットワークが利用可能のときは`priority`が大きいほうが優先されます．
@@ -49,21 +49,25 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-  ssid="your_first_ssid"
-  psk="your_first_password"
-  key_mgmt=WPA-PSK
-  priority=1
-}
-
-network={
-  ssid="your_second_ssid"
-  psk="your_second_password"
+  ssid="ssid_of_wifi"
+  psk="password_of_wifi"
   key_mgmt=WPA-PSK
   priority=0
 }
+
+network={
+  ssid="ssid_of_mobile_router"
+  psk="password_of_mobile_router"
+  key_mgmt=WPA-PSK
+  priority=1
+}
 ```
 
-ラズパイを再起動すると，自動的に WiFi に接続します．
+この例では 1 つ目に WiFi，2 つ目にモバイルルータの設定を書き，後者の優先度を大きく設定しています．
+屋外などの非 WiFi 環境では PC とラズパイの通信にモバイルルータを用いると便利です．
+今回は<a href=https://www.aterm.jp/product/atermstation/product/mobile/mr05ln/ target="_blank">NEC MR05LN</a>を使用します．
+
+ラズパイを再起動すると，自動的にネットワークに接続します．
 これ以降ラズパイのディスプレイ，キーボード，マウスは必要ありません．
 
 ## ラズパイへの SSH 接続
