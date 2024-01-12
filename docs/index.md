@@ -100,3 +100,11 @@ Tobas を使用するためには，ドローンの 3D モデルを元に URDF �
 - <a href=https://www.autodesk.co.jp/products/fusion-360 target="_blank">Fusion 360</a>
 - <a href=https://www.autodesk.co.jp/products/inventor target="_blank">Inventor</a>
 - <a href=https://www.solidworks.com/ja target="_blank">SolidWorks</a>
+
+## 連絡先
+
+---
+
+土肥 正義<br>
+E-mail: masa0u0masa1215(at)gmail.com<br>
+Tel: 070-8484-1557<br>
