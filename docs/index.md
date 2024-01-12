@@ -105,6 +105,8 @@ Tobas を使用するためには，ドローンの 3D モデルを元に URDF �
 
 ---
 
+Tobas のご利用をお考えの方は，下記までご連絡いただけますと幸いです．
+
 土肥 正義<br>
 E-mail: masa0u0masa1215(at)gmail.com<br>
 Tel: 070-8484-1557<br>
