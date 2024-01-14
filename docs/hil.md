@@ -23,7 +23,6 @@ user@pc $ roslaunch tobas_f450_config gazebo.launch
 
 ```bash
 pi@navio $ su
-root@navio $ source /home/pi/catkin_ws/devel/setup.bash
 root@navio $ roslaunch tobas_f450_config hil.launch
 ```
 
