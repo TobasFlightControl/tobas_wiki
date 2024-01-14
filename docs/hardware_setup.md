@@ -105,9 +105,6 @@ pi@navio $ catkin build tobas_f450_config
 
 ---
 
-PPM または S.Bus に対応しているプロポが使用できます．
-今回は<a href=https://www.rc.futaba.co.jp/products/detail/I00000006>Futaba T10J</a>を使用します．
-
 RC 入力の各チャンネルの意味は以下のようになっています:
 
 | チャンネル | 意味       |

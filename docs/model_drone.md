@@ -4,11 +4,42 @@
 使用する 3D CAD に指定はありませんが，URDF を作成するためにメッシュファイル (\*.stl 又は \*.dae) での出力と質量解析ができるものが望ましいです．
 このチュートリアルでは Autodesk の Fusion 360 を使用します．
 
-## 注意点
+## 構成要素の選定に関する注意点
 
 ---
 
-モデルを作成する際は，以下の点に注意してください．
+ドローンの構成要素を選定する際には，以下の点に注意してください．
+
+### ESC
+
+1000us ~ 2000us の PWM を受け付ける必要があります．
+BLHeli-S のファームウェアならば実績があります．
+
+### プロペラ
+
+制御性能を高めるため，空力特性が分かるものが望ましいです．
+<a href=https://www.tytorobotics.com/pages/series-1580-1585 target="_blank">Series 1585 Thrust Stand</a>
+のような推力測定機で測定するか，そうでなければなるべく
+<a href=https://m-selig.ae.illinois.edu/props/propDB.html target="_blank">UIUC Propeller Data Site</a>
+でデータが得られるプロペラを使用してください．
+
+### RC 受信機
+
+S.BUS に対応しているものを使用してください．
+今回は<a href=https://www.amazon.co.jp/UltraPower-Corona-R8SF-S-BUS-S-FHSS/dp/B087YZYN9W target="_blank">Corona R8SF</a>
+を使用します．
+
+### RC 送信機
+
+RC 受信機が対応しているプロトコルに対応しているものを使用してください．
+今回は<a href=https://www.rc.futaba.co.jp/products/detail/I00000006 target="_blank">Futaba T10J</a>を使用します．
+こちらは R8SF の S-FHSS プロトコルに加え，双方向通信が可能な T-FHSS AIR に対応しています．
+
+## モデリングに関する注意点
+
+---
+
+モデリングの際は，以下の点に注意してください．
 
 ### 1. 剛体ごとにモデルを作成する
 
@@ -32,6 +63,7 @@ Gazebo (物理シミュレータ) と同じく，NWU 座標系 (X 軸を前，Y 
 
 制御器にはモデル化誤差に対するロバスト性があるため，モデルの質量特性は必ずしも正確である必要はありません．
 モデルと実機をなるべく一致させるよう努力すべきですが，理論上は誤差 50%以内なら安定性を損なわないと言えます．
+例えば RC 受信機やケーブルは軽量なので，今回はモデルから省略することにします．
 
 ## クアッドコプターのモデリング
 
