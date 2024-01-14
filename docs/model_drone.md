@@ -25,7 +25,7 @@ BLHeli-S のファームウェアならば実績があります．
 
 ### RC 受信機
 
-S.BUS に対応しているものを使用してください．
+8 チャンネル以上の S.BUS に対応しているものを使用してください．
 今回は<a href=https://www.amazon.co.jp/UltraPower-Corona-R8SF-S-BUS-S-FHSS/dp/B087YZYN9W target="_blank">Corona R8SF</a>
 を使用します．
 
