@@ -34,7 +34,7 @@ $ unzip tobas-x.x.x.zip
 インストールスクリプトを実行してください．
 
 ```bash
-$ cd tobas-x.x.x/
+$ cd tobas/
 $ ./lib/tobas_setup/install_prereqs_ubuntu.sh
 ```
 

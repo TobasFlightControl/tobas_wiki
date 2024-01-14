@@ -140,7 +140,7 @@ T10J の場合はチャンネル 1 からチャンネル 4 までは上の表で
 以下を実行し，コンソールの指示に従ってください:
 
 ```bash
-pi@navio $ ~/tobas-x.x.x/lib/tobas_real/accel_calibration
+pi@navio $ ~/tobas/lib/tobas_real/accel_calibration
 ```
 
 ### 地磁気センサ
@@ -148,7 +148,7 @@ pi@navio $ ~/tobas-x.x.x/lib/tobas_real/accel_calibration
 以下を実行し，コンソールの指示に従ってください:
 
 ```bash
-pi@navio $ ~/tobas-x.x.x/lib/tobas_real/mag_calibration
+pi@navio $ ~/tobas/lib/tobas_real/mag_calibration
 ```
 
 ### バッテリー電圧
@@ -157,7 +157,7 @@ pi@navio $ ~/tobas-x.x.x/lib/tobas_real/mag_calibration
 以下を実行し，コンソールの指示に従ってください:
 
 ```bash
-pi@navio $ ~/tobas-x.x.x/lib/tobas_real/adc_calibration
+pi@navio $ ~/tobas/lib/tobas_real/adc_calibration
 ```
 
 ### RC 入力
@@ -166,7 +166,7 @@ RC レシーバと Navio2 が正しく接続し，RC レシーバと RC トラ�
 以下を実行し，コンソールの指示に従ってください:
 
 ```bash
-pi@navio $ ~/tobas-x.x.x/lib/tobas_real/rcin_calibration
+pi@navio $ ~/tobas/lib/tobas_real/rcin_calibration
 ```
 
 ### ESC
@@ -182,14 +182,13 @@ pi@navio $ ~/tobas-x.x.x/lib/tobas_real/rcin_calibration
 
 ```bash
 pi@navio $ su
-root@navio $ /home/pi/tobas-x.x.x/lib/tobas_real/esc_calibration
+root@navio $ /home/pi/tobas/lib/tobas_real/esc_calibration
 ```
 
 キャリブレーションが成功したかどうかを確認します．
 以下を実行してください:
 
 ```bash
-pi@navio $ su
 root@navio $ roslaunch tobas_motor_test motors_handler.launch
 ```
 
@@ -209,7 +208,7 @@ pi@navio $ hostname -I
 
 ![motor_test_gui](resources/hardware_setup/motor_test_gui.png)
 
-まず，全てのモータの回転方向が正しいことを確認してください．
+まず，<span style="color: red;"><strong>全てのモータの回転方向が正しいことを確認してください．</strong></span>
 回転方向が反対の場合は，ESC とブラシレスモータの接続線のうち任意の 2 本を入れ替えてください．
 
 次に，全てのモータについて以下の点を確認してください:
@@ -240,5 +239,5 @@ pi@navio $ hostname -I
 
 ```bash
 pi@navio $ su
-root@navio $ /home/pi/tobas-x.x.x/lib/tobas_real/measure_sensor_noise
+root@navio $ /home/pi/tobas/lib/tobas_real/measure_sensor_noise
 ```
