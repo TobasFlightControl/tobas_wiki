@@ -1,6 +1,7 @@
 # Tobas Setup Assistant
 
-前ページで作成した URDF を用いて，ドローンの詳細設定を行います．
+Tobas Setup Assistant は，Tobas を用いてドローンを飛ばすのに必要な設定ファイルを生成するための GUI です．
+前ページで作成した URDF を読み込み，プロペラの空気力学や制御器などの URDF には表現されていない項目の設定を行います．
 
 ## catkin ワークスペースの作成
 
