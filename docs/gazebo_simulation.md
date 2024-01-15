@@ -29,8 +29,7 @@ $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 $ roslaunch tobas_f450_config gazebo.launch
 ```
 
-F450 が原点位置に配置され，プロペラがゆっくり回転しています．
-プロペラの回転方向が正しいことを確認してください．
+モデリングしたドローンが原点位置に配置されています．
 
 ![launch](resources/gazebo_simulation/launch.png)
 
@@ -48,9 +47,11 @@ $ roslaunch tobas_f450_config bringup.launch
 
 ![bringup](resources/gazebo_simulation/bringup.png)
 
-## キーボードから操作
+## ドローンの遠隔操作
 
 ---
+
+### キーボードから操作
 
 PC のキーボードからドローンを操作することができます．
 以下のコマンドを実行します:
@@ -64,9 +65,7 @@ $ roslaunch tobas_f450_config keyboard_teleop.launch
 
 ![keyboard_teleop](resources/gazebo_simulation/keyboard_teleop.png)
 
-## GUI で操作
-
----
+### GUI で操作
 
 GUI でドローンを操作することもできます．
 先程の keyboard_teleop.launch を Ctrl + C でシャットダウンし，以下のコマンドを実行します:
@@ -81,9 +80,7 @@ $ roslaunch tobas_f450_config gui_teleop.launch
 
 ![gui_teleop](resources/gazebo_simulation/gui_teleop.png)
 
-## ROS API で操作
-
----
+### ROS API で操作
 
 ROS API 用いてドローンに指令を送ることもできます．
 ユーザのプログラムからドローンの情報にアクセスできるため，アプリケーションを作成する際に有用です．
@@ -194,3 +191,20 @@ $ chmod u+x ~/catkin_ws/src/my_tobas_example/scripts/command_square_trajectory_n
 ```bash
 $ rosrun my_tobas_example command_square_trajectory_node.py __ns:=f450
 ```
+
+## パラメータチューニング
+
+---
+
+必要であれば飛行中にオンラインでパラメータを調整することができます．
+以下のコマンドで調整用の GUI を立ち上げます:
+
+```bash
+$ rosrun rqt_reconfigure rqt_reconfigure
+```
+
+![rqt_reconfigure](resources/gazebo_simulation/rqt_reconfigure.png)
+
+オンラインで調整可能な全てのパラメータが表示され，水平バー，エディタ等で値を調整することができます．
+パラメータ名にカーソルを重ねると，パラメータの説明文が表示されます．
+詳しくは<a href=https://wiki.ros.org/rqt_reconfigure>rqt_reconfigure | ROS</a>をご覧ください．
