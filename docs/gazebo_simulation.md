@@ -84,7 +84,7 @@ $ roslaunch tobas_f450_config gui_teleop.launch
 
 ROS API 用いてドローンに指令を送ることもできます．
 ユーザのプログラムからドローンの情報にアクセスできるため，アプリケーションを作成する際に有用です．
-詳しい仕様は[ROS API](ros_api.md)をご覧ください．
+詳しくは[ROS API](ros_api.md)をご覧ください．
 
 まず，ドローンを操作するスクリプトを配置するための ROS パッケージを作成します．
 
