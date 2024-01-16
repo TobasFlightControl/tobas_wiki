@@ -195,7 +195,7 @@ root@navio $ roslaunch tobas_motor_test motors_handler.launch
 Execute the following on an external PC:
 
 ```bash
-user@pc $ export ROS_MASTER_URI=http://(Raspberry Pi IP address):11311  # e.g. export ROS_MASTER_URI=http://192.168.1.1:11311
+user@pc $ export ROS_MASTER_URI=http://[Raspberry Pi IP Address]:11311  # e.g. export ROS_MASTER_URI=http://192.168.1.1:11311
 user@pc $ roslaunch tobas_motor_test motor_test_gui.launch
 ```
 
