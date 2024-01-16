@@ -1,6 +1,6 @@
 # Hardware Setup
 
-Now that the simulation has been successfully completed, I will proceed with setting up the actual hardware.
+Now that the simulation has been successfully completed, I will proceed with setting up the real machine.
 
 ## Build the Real Drone
 

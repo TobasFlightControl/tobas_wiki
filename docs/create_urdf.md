@@ -2,7 +2,7 @@
 
 We will create a URDF (Unified Robot Description Format, a robot description language) based on the CAD model .
 URDF is a format that describes the link structure and mass characteristics of a rigid multi-link system in XML format.
-This time, we will create the following URDF:
+In this tutorial, we will create the following URDF:
 
 ```xml
 <robot name="f450">
@@ -207,7 +207,7 @@ Although not used this time, pressing the `Load` button allows you to load and e
 ![new](resources/create_urdf/new.png)
 
 Set an appropriate name in the `Robot Name` at the top left of the screen.
-This time, we will simply use `f450`.
+In this tutorial, we will simply use `f450`.
 
 ![robot_name](resources/create_urdf/robot_name.png)
 
@@ -243,7 +243,7 @@ the `Origin` can remain at the origin.
 If the CAD coordinate system is misaligned, it needs adjustment here.
 Select `Mesh` for `Geometry` type and choose the mesh file of the frame through the `Browse` button in `Path`.
 This will visualize the model.
-URDF uses the SI unit system, so the length unit is m, while Fusion360 was set to mm,
+URDF uses the SI unit system, so the length unit is m, while Fusion 360 was set to mm,
 so it appears at a scale of 1000 times larger than actual size.
 Each grid in the model view is 10 cm, so it appears very large.
 Therefore, set the `Scale` to 0.001 to match the mesh file scale with the URDF.

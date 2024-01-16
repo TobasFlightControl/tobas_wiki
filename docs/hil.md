@@ -1,7 +1,7 @@
 # Hardware in the Loop (HIL)
 
 Hardware in the Loop (HIL) refers to conducting simulations
-using actual hardware (such as a flight controller or RC transmitter) in the loop.
+using real machine (such as a flight controller or RC transmitter) in the loop.
 This allows for testing the system's behavior in real-time, thereby reducing the risks associated with real-world trials.
 
 First, launch roscore on the Raspberry Pi:
