@@ -1,9 +1,9 @@
 # ROS API
 
-It is important to note that not all APIs are covered in the documentation or instructions provided.
-The information typically focuses on the primary or most commonly used APIs.
-To get a comprehensive understanding of all available APIs and their specific functions,
-it is advisable to use ROS commands such as $ rostopic list during runtime.
+It's important to understand that the documentation and instructions might not cover every available API.
+Typically, they focus on the primary or most commonly used APIs.
+For a thorough understanding of all available APIs and their specific functions,
+using ROS commands like $ rostopic list during runtime is recommended.
 
 ## Topics
 
@@ -32,7 +32,7 @@ float64 temperature  # [celsius]
 
 #### rc_input (tobas_msgs/RCInput)
 
-RC Input received via S.BUS.
+RC input received via S.BUS.
 
 ```txt
 std_msgs/Header header
@@ -107,7 +107,7 @@ sensor_msgs/ChannelFloat32[] channels
 
 #### external_odometry (nav_msgs/Odometry)
 
-The odometry obtained from external position estimation devices such as Visual Inertial Odometry (VIO).
+Odometry data from external position estimation devices, such as Visual Inertial Odometry (VIO).
 
 ```txt
 std_msgs/Header header
@@ -141,7 +141,7 @@ float64[] effort    # [N or Nm]
 
 #### odom (tobas_msgs/Odometry)
 
-The position, velocity, and acceleration estimated by the state estimator, relative to the startup location.
+Position, velocity, and acceleration estimates from the state estimator, relative to the startup location.
 
 ```txt
 std_msgs/Header header
@@ -173,7 +173,7 @@ Users can control the drone by publishing to these topics.
 
 #### command/throttles (tobas_msgs/Throttles)
 
-Throttle commanded to each ESC.
+Throttle commands directed to each Electronic Speed Controller (ESC).
 
 ```txt
 std_msgs/Header header
@@ -182,7 +182,7 @@ float64[] data  # [0, 1]
 
 #### command/deflections (tobas_msgs/ControlSurfaceDeflections)
 
-Control surface deflections for fixed-wing.
+Control surface deflection commands for fixed-wing aircraft.
 
 ```txt
 std_msgs/Header header
@@ -190,6 +190,8 @@ float64[] deflections  # [deg]
 ```
 
 #### command/pos_vel_acc_yaw (tobas_msgs/PosVelAccYaw)
+
+Commands for position, velocity, acceleration, and yaw.
 
 ```txt
 tobas_msgs/CommandLevel level
@@ -205,6 +207,8 @@ float64 yaw                # [rad]
 
 #### command/position_yaw (tobas_msgs/PositionYaw)
 
+Commands for position and yaw.
+
 ```txt
 tobas_msgs/CommandLevel level
 tobas_kdl_msgs/Vector pos  # [m]
@@ -212,6 +216,8 @@ float64 yaw                # [rad]
 ```
 
 #### command/velocity_yaw (tobas_msgs/VelocityYaw)
+
+Commands for velocity and yaw.
 
 ```txt
 tobas_msgs/CommandLevel level
@@ -223,6 +229,8 @@ float64 yaw                # [rad]
 
 #### command/rpy_thrust (tobas_msgs/RollPitchYawThrust)
 
+Commands for roll, pitch, yaw, and thrust.
+
 ```txt
 tobas_msgs/CommandLevel level
 tobas_kdl_msgs/Euler rpy  # [rad]
@@ -230,6 +238,8 @@ float64 thrust            # [N]
 ```
 
 #### command/pose_twist_accel (tobas_msgs/PoseTwistAccelCommand)
+
+Commands for pose, twist, and acceleration.
 
 ```txt
 tobas_msgs/CommandLevel level
@@ -244,6 +254,8 @@ tobas_kdl_msgs/Vector dgyro  # Target local angular acceleration (feedforward) [
 ```
 
 #### command/speed_roll_delta_pitch (tobas_msgs/SpeedRollDeltaPitch)
+
+Commands for absolute speed, absolute roll, and pitch relative to the trim state.
 
 ```txt
 float64 speed        # [m/s]
