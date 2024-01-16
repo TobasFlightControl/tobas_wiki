@@ -1,19 +1,22 @@
 # Installation
 
-## Dual Booting Ubuntu 20.04 LTS
+## Setting Up Dual Boot with Ubuntu 20.04 LTS
 
 ---
 
-Tobas operates on Ubuntu 20.04 LTS.
-For Windows users, while it's possible to use WSL (Windows Subsystem for Linux), there have been reports of issues.
-Therefore, a native installation (dual booting with Windows) is recommended.
+Tobas is optimized for Ubuntu 20.04 LTS.
+For Windows users, although WSL (Windows Subsystem for Linux) is an option, it has shown some compatibility issues.
+Hence, a dual-boot installation with Windows is the recommended approach.
 
-Installing Tobas on Your PC
+## Installing Tobas on Your PC
 
 ---
 
-Unzip the tobas-x.x.x.zip file into your installation directory.
-The installation directory can be the home directory or any other location of your choice.
+Follow these steps to install Tobas on your computer:
+
+First, extract the 'tobas-x.x.x.zip' file into your chosen installation directory.
+This can be your home directory or any other preferred location.
+Use the following commands in the terminal:
 
 ```bash
 $ sudo apt install -y unzip
@@ -21,21 +24,24 @@ $ cd path/to/installation/directory/
 $ unzip tobas-x.x.x.zip
 ```
 
-Then, run the installation script:
+Next, execute the installation script:
 
 ```bash
 $ cd tobas/
 $ ./lib/tobas_setup/install_prereqs_ubuntu.sh
 ```
 
-## フライトコントローラのセットアップ
+## Flight Controller Setup
 
 ---
 
-As of now, Tobas has been tested and confirmed to work with the
+Currently, Tobas has been successfully tested with the
 <a href=https://www.raspberrypi.com/products/raspberry-pi-4-model-b/ target="_blank">Raspberry Pi Model 4B</a>
 and <a href=https://navio2.hipi.io/ target="_blank">Navio2</a>.
-In the future, there are plans to extend support to more reliable hardware with better real-time capabilities and redundancy.
+Plans are in place to expand support to other hardware platforms that offer improved real-time performance and redundancy.
 
-Write the Raspbian image with tobas-x.x.x installed onto a micro SD card.
-TODO
+Write the Raspbian image with Tobas version 'x.x.x' pre-installed onto a micro SD card.
+
+For more detailed instructions or if you encounter any issues during the installation process, please refer to the Tobas documentation or contact support.
+
+<!-- TODO -->
