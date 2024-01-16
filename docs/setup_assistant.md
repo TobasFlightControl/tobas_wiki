@@ -1,16 +1,15 @@
 # Tobas Setup Assistant
 
-Tobas Setup Assistant is a GUI tool for generating configuration files necessary to fly drones using Tobas.
-It loads the URDF created on the previous page and configures items not expressed in the URDF,
-such as the aerodynamics of propellers and controllers.
+The Tobas Setup Assistant is a GUI tool designed for creating configuration files needed to operate drones with Tobas.
+It utilizes the URDF created in the previous steps and allows for the configuration of elements not expressed in the URDF,
+such as propeller aerodynamics and controller settings.
 
-## Create a Catkin Workspace
+## Creating a Catkin Workspace
 
 ---
 
-Tobas Setup Assistant creates a ROS package containing all the necessary configuration files
-for using Tobas with the user's drone.
-A catkin workspace is required for this, which can be created using the following commands:
+To use Tobas with your drone, you need to create a ROS package containing all necessary configuration files.
+This requires a catkin workspace, which can be set up with the following commands:
 
 ```bash
 $ mkdir -p ~/catkin_ws/src
@@ -18,13 +17,13 @@ $ cd ~/catkin_ws
 $ catkin init
 ```
 
-You can replace `catkin_ws` with any other name.
+Feel free to replace `catkin_ws` with any name of your choice.
 
-## Launch the Setup Assistant and Load the URDF
+## Launching the Setup Assistant and Loading the URDF
 
 ---
 
-Launch the Tobas Setup Assistant from the terminal:
+Start the Tobas Setup Assistant using following command in the terminal:
 
 ```bash
 $ roslaunch tobas_setup_assistant setup_assistant.launch
@@ -32,48 +31,47 @@ $ roslaunch tobas_setup_assistant setup_assistant.launch
 
 ![launch](resources/setup_assistant/launch.png)
 
-Press the `Browse` button to select the URDF you created, and then press `Load`.
-Once the URDF is loaded, the link names are displayed in a tree structure under `Frames Tree` on the top left of the screen.
-Clicking on a link name highlights the corresponding link in the central model view.
-All movable joint names are displayed on the top right,
-and moving the bars changes the corresponding joint angles in the central model view.
+To load your URDF, click `Browse`, select your file, and then click `Load`.
+The URDF's link names will appear in a tree structure under `Frames Tree` on the screen's top left.
+Selecting a link will highlight it in the central model view.
+Movable joint names are displayed on the top right,
+and adjusting the sliders will change the corresponding joint angles in the model view.
 
 ![load](resources/setup_assistant/load.png)
 
-Once loading is complete, the tabs on the left become active.
-You will configure these tabs in order.
+Once the URDF is loaded, tabs on the left side of the screen become active for configuration.
 
 ## Battery
 
 ---
 
-Configure the battery settings according to its specifications.
+Input the specifications of your drone's battery in the battery settings tab.
 
 ![battery](resources/setup_assistant/battery.png)
 
-## Propulsion
+## Propulsion System
 
 ---
 
-Configure the propulsion system (propellers). `Available Links` displays links that can be used as propellers.
-If not displayed, check if the joint type of the propeller link in URDF Builder is `Continuous`.
+This section involves configuring the propellers.
+`Available Links` list shows links that can be designated as propellers.
+If a necessary link does not exist in the list, check if its joint type in the URDF Builder is set to `Continuous`.
 
 ![propulsion_1](resources/setup_assistant/propulsion_1.png)
 
-Pressing the `Add` button next to a link name displays the thrust direction as an arrow in the model view
-and adds a settings tab for that propeller.
-If the thrust direction is incorrect, modify the `Axis` in URDF Builder.
+Click `Add` next to a link name to visualize the thrust direction as an arrow in the model view
+and to open a settings tab for that propeller.
+If the thrust direction appears incorrect, adjust the Axis in URDF Builder.
 
 ![propulsion_2](resources/setup_assistant/propulsion_2.png)
 
-Configure `propeller1` by entering appropriate values in `ESC Settings` and `Blade Geometry` based on the spec sheet.
+For `propeller1`, input the relevant values in `ESC Settings` and `Blade Geometry` as per the spec sheet.
 
 ![propulsion_3](resources/setup_assistant/propulsion_3.png)
 
-In `Motor Settings`, configure the motor dynamics.
-Although `Set from experimental data` is preferable,
-use `Set from motor spec` if you don't have experimental data for the motor with the propeller.
-Enter appropriate values based on the spec sheet.
+In `Motor Settings`, set up the motor dynamics.
+If you don't have experimental data for your motor with the propeller,
+select `Set from motor spec` and input values based on the spec sheet.
 
 ![propulsion_4](resources/setup_assistant/propulsion_4.png)
 
@@ -110,33 +108,34 @@ RPM,CT,CP
 6768,0.1199,0.0483
 ```
 
-You must configure the other three propellers as well,
-but since their settings are the same except for rotation direction, you can copy from one to the others.
-Using the left tabs, copy the settings of each propeller by pressing `Copy from left tab` at the top of each tab.
-Make sure the settings of `propeller1` are reflected in the other propellers
-and set the `Rotating Direction` appropriately for each.
-If you are unsure about the correspondence of link names and positions, use the highlight feature in the `Frames Tree` to verify.
+Configure the remaining three propellers similarly.
+Since their settings are identical except for the rotation direction,
+you can copy the settings from one propeller to the others.
+Use the `Copy from left tab` button at the top of each tab to duplicate settings.
+Ensure the settings from `propeller1` are correctly applied to the others and adjust the `Rotating Direction` for each.
+If you're unsure about which link corresponds to which position on the drone,
+use the highlight feature in the `Frames Tree` for clarification.
 
 ## Fixed Wing
 
 ---
 
-Configure the fixed-wing settings. Since this is a rotary-wing aircraft, we will skip this step.
+This section is for configuring fixed-wing aircraft settings.
+Since we're working with a rotary-wing aircraft in this example, we'll skip this step.
 
 ## Custom Joints
 
 ---
 
-Configure any joints other than the propulsion system and fixed-wing surfaces.
-As there are no movable joints other than the propellers in this case, we will skip this step.
+Here, you can configure any movable joints that are not part of the propulsion system or fixed-wing surfaces. In our current setup, as there are no movable joints besides the propellers, we will skip this step.
 
 ## Onboard Sensors (IMU, Barometer, GPS)
 
 ---
 
-The 9-axis IMU, barometer, and GPS are integrated into the flight controller.
-Generally, the default settings are sufficient, but since the GNSS receiver is located away from the root frame,
-we will adjust the GPS offset for this case.
+The integrated 9-axis IMU, barometer, and GPS are part of the flight controller.
+While the default settings are typically sufficient,
+we will adjust the GPS offset in this instance to account for the GNSS receiver's location, which is away from the root frame.
 
 ![gps](resources/setup_assistant/gps.png)
 
@@ -144,14 +143,15 @@ we will adjust the GPS offset for this case.
 
 ---
 
-Configure any equipment that publishes camera, LiDAR, or odometry data.
-Since none of these are mounted in this case, we will skip this step.
+This section is for setting up any additional equipment that publishes camera, LiDAR, or odometry data.
+As our current drone setup does not include these devices, we'll skip this part.
 
 ## RC Transmitter
 
 ---
 
-Configure the settings related to the remote control transmitter. Set `The number of flight modes` to 2.
+Configure the settings for the remote control transmitter.
+In this example, set `The number of flight modes` to 2.
 
 ![rc_transmitter](resources/setup_assistant/rc_transmitter.png)
 
@@ -159,10 +159,11 @@ Configure the settings related to the remote control transmitter. Set `The numbe
 
 ---
 
-Configure the controller settings. Opening the combo box will display available controllers.
-For this case, select `Multirotor PID`.
-The `Flight Modes` should show the number of flight modes set in the `RC Transmitter` tab.
-Set `Flight Mode 1` to `RollPitchYawThrust` and `Flight Mode 2` to `PosVelAccYaw`.
+In this section, you'll configure the controller settings.
+Upon opening the combo box, you'll see a list of available controllers.
+For our purposes, select `Multirotor PID`.
+The `Flight Modes` displayed should correspond to the number you set in the `RC Transmitter` tab.
+Assign `Flight Mode 1` as `RollPitchYawThrust` and `Flight Mode 2` as `PosVelAccYaw`.
 
 ![controller](resources/setup_assistant/controller.png)
 
@@ -170,26 +171,26 @@ Set `Flight Mode 1` to `RollPitchYawThrust` and `Flight Mode 2` to `PosVelAccYaw
 
 ---
 
-Configure the state estimator settings.
-The default settings are generally adequate.
+Set up the state estimator settings here.
+The default configurations are usually adequate for most use cases.
 
 ## Simulation
 
 ---
 
-Configure the Gazebo simulation environment settings.
-`Gravity` is fixed at the standard gravitational acceleration.
-The latitude, longitude, and altitude are set by default
-to the Geodetic origin of Japan and the Japan Vertical Datum, respectively.
-Since these are not particularly crucial for this case, we will keep the default settings.
+Configure the settings for the Gazebo simulation environment.
+`Gravity` is set to the standard gravitational acceleration by default.
+The default latitude, longitude, and altitude correspond to the Geodetic origin of Japan and the Japan Vertical Datum.
+These settings are not critical for our current setup, so we'll maintain them as they are.
 
 ![simulation](resources/setup_assistant/simulation.png)
 
-## Author Info
+## Author Infomation
 
 ---
 
-Enter the name and email address of the administrator of the Tobas package generated by the Setup Assistant.
+Enter the name and email address of the person administering the Tobas package that you're creating with the Setup Assistant.
+This step is important for keeping track of package ownership and for any necessary future communications.
 
 ![author_info](resources/setup_assistant/author_info.png)
 
@@ -197,20 +198,26 @@ Enter the name and email address of the administrator of the Tobas package gener
 
 ---
 
-Set the directory and name for generating the Tobas package.
-Set the `Parent Directory` to under `src/` of your catkin workspace and enter an appropriate name in `Package Name`.
-Pressing the `Generate` button will create the Tobas package in the specified directory,
-and the Setup Assistant will shut down automatically.
+This section is for setting up the directory and name for the Tobas package you're generating.
+Set the `Parent Directory` to the `src/` directory within your catkin workspace.
+Choose an appropriate name for your package and enter it in the `Package Name` field.
+Once you click the `Generate` button, the Tobas package will be created in the specified directory,
+and the Setup Assistant will close automatically.
 
 ![ros_package](resources/setup_assistant/ros_package.png)
 
-## Build
+## Building the Tobas Package
 
 ---
 
-Move to the catkin workspace and build the generated Tobas package:
+After generating the Tobas package, you need to build it within your catkin workspace.
+Navigate to your workspace directory and use the following commands to build the Tobas package:
 
 ```bash
 $ cd ~/catkin_ws
 $ catkin build tobas_f450_config
 ```
+
+This final step compiles and integrates the package into your ROS environment, making it ready for use with your drone setup.
+With this, the configuration process using the Tobas Setup Assistant is complete,
+and your drone should now be properly set up with all the necessary configuration files for operation.
