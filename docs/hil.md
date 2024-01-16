@@ -1,24 +1,25 @@
 # Hardware in the Loop (HIL)
 
-Hardware in the Loop (HIL) refers to conducting simulations
-using real machine (such as a flight controller or RC transmitter) in the loop.
-This allows for testing the system's behavior in real-time, thereby reducing the risks associated with real-world trials.
+Hardware in the Loop (HIL) is a simulation technique that involves integrating actual hardware components,
+such as a flight controller or an RC transmitter, into the simulation loop.
+This approach enables real-time testing of the system's behavior,
+significantly reducing the risks associated with conducting trials in real-world environments.
 
-First, launch roscore on the Raspberry Pi:
+To begin, initiate `roscore` on the Raspberry Pi:
 
 ```bash
 pi@navio $ roscore
 ```
 
-Next, launch Gazebo on an external PC.
-Since the ROS master is on the Raspberry Pi, you need to set the environment variable accordingly.
+Then, start Gazebo on a separate PC.
+Remember, the ROS master is running on the Raspberry Pi, so you must set the environment variable to reflect this.
 
 ```bash
-user@pc $ export ROS_MASTER_URI=http://(ラズパイのIPアドレス):11311
+user@pc $ export ROS_MASTER_URI=http://[Raspberry Pi IP Address]:11311
 user@pc $ roslaunch tobas_f450_config gazebo.launch
 ```
 
-On the Raspberry Pi, launch the software necessary for HIL.
+On the Raspberry Pi, launch the software needed for HIL.
 
 <span style="color: red;"><strong>Warning: Make sure that the propellers are removed from the motors.</strong></span>
 
@@ -27,10 +28,13 @@ pi@navio $ su
 root@navio $ roslaunch tobas_f450_config hil.launch
 ```
 
-Turning the E_STOP (CH5) on the RC transmitter on and then off will enable control of the drone in Gazebo via the RC transmitter.
+To enable drone control in Gazebo using the RC transmitter, switch the E_STOP (CH5) on the transmitter on and then off.
 <span style="color: red;"><strong>
-Be aware that turning E_STOP on again will trigger an emergency stop, causing all motors to stop.
+However, be cautious: activating E_STOP again will engage an emergency stop, immediately halting all motors.
 </strong></span>
-On the RC transmitter, the pitch lever corresponds to the north-south (X-axis),
-the roll lever to east-west (Y-axis), and the throttle lever to up-down (Z-axis) velocities.
-Verify that the motor speed changes are consistent between the simulation and the real hardware.
+
+Regarding the controls on the RC transmitter:
+the pitch lever adjusts the north-south movement (X-axis),
+the roll lever controls east-west movement (Y-axis),
+and the throttle lever manages the altitude (Z-axis).
+Ensure that the changes in motor speed are consistent between the simulation and the actual hardware.
