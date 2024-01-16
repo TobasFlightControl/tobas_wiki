@@ -1,108 +1,111 @@
 # Gazebo Simulation
 
-前ページで作成した Tobas パッケージを用いて，ドローンのシミュレーションを行います．
+To simulate the drone using the Tobas package you created earlier, follow these steps:
 
-## 前準備
+## Preliminary Setup
 
 ---
 
-catkin ワークスペースの環境変数を現在のシェルに読み込ませます:
+Load the catkin workspace environment variables into the current shell:
 
 ```bash
 $ source ~/catkin_ws/devel/setup.bash
 ```
 
-このコマンドは端末を開く (ターミナルのページを増やす) ごとに実行する必要がありますが，
-`~/.bashrc`に書き込むことで端末を開いた時に自動で実行されるようになり，手間が省けます:
+This command needs to be executed every time you open a terminal (or add a new terminal page).
+To avoid this manual step, you can automate it by writing this command to your `~/.bashrc`:
 
 ```bash
 $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 ```
 
-## Gazebo シミュレーションの起動
+## Launch Gazebo Simulation
 
 ---
 
-以下のコマンドでシミュレーションを起動します:
+Start the simulation with the following command:
 
 ```bash
 $ roslaunch tobas_f450_config gazebo.launch
 ```
 
-モデリングしたドローンが原点位置に配置されています．
+The modeled drone will be placed at the origin.
 
 ![launch](resources/gazebo_simulation/launch.png)
 
-## Tobas ソフトウェアの起動
+## Launch Tobas Software
 
 ---
 
-以下のコマンドで，制御器や観測器などの主要なソフトウェアを起動します:
+Launch the main software components such as the controller and sensor systems with this command:
 
 ```bash
 $ roslaunch tobas_f450_config bringup.launch
 ```
 
-緑色で`[INFO] Controller is ready`と表示されたら，ドローンの飛行準備が整ったので，ROS API でドローンを操作することができます．
+Once you see a green `[INFO] Controller is ready` message, the drone is ready for flight, and you can operate it using ROS API.
 
 ![bringup](resources/gazebo_simulation/bringup.png)
 
-## ドローンの遠隔操作
+## Teleoperation
 
 ---
 
-### キーボードから操作
+### Operation via Keyboard
 
-PC のキーボードからドローンを操作することができます．
-以下のコマンドを実行します:
+You can operate the drone using your PC's keyboard.
+Execute the following command:
 
 ```bash
 $ roslaunch tobas_f450_config keyboard_teleop.launch
 ```
 
-すると，Gazebo 上のドローンが離陸し，一定の高度でホバリングします．
-端末を見ると操作方法が表示されており，端末にフォーカスした状態でキーを押すことでドローンの位置を操作できます．
+The drone in Gazebo will take off and hover at a certain altitude.
+Instructions for operation will be displayed in the terminal,
+and you can control the drone's position by pressing keys while the terminal is focused.
 
 ![keyboard_teleop](resources/gazebo_simulation/keyboard_teleop.png)
 
-### GUI で操作
+### Operation via GUI
 
-GUI でドローンを操作することもできます．
-先程の keyboard_teleop.launch を Ctrl + C でシャットダウンし，以下のコマンドを実行します:
+You can also operate the drone using a GUI.
+Shutdown the previous keyboard_teleop.launch with Ctrl + C, and then run this command:
 
 ```bash
 $ roslaunch tobas_f450_config gui_teleop.launch
 
 ```
 
-バーを動かすことでドローンの位置を操作できます．
-今回は回転翼機なので操作できるのは`x`，`y`，`z`，`yaw`のみであり，`roll`，`pitch`を直接操作することはできません．
+You can control the drone's position by moving the bars.
+As this is a rotorcraft, you can only control `x`, `y`, `z`, and `yaw`. Direct control of `roll` and `pitch` is not possible.
 
 ![gui_teleop](resources/gazebo_simulation/gui_teleop.png)
 
-### ROS API で操作
+### Operation using ROS API
 
-ROS API 用いてドローンに指令を送ることもできます．
-ユーザのプログラムからドローンの情報にアクセスできるため，アプリケーションを作成する際に有用です．
-詳しくは[ROS API](ros_api.md)をご覧ください．
+You can also send commands to the drone using ROS API.
+This is useful when creating applications, as it allows access to drone information from a user's program.
+For more details, see [ROS API](ros_api.md).
 
-まず，ドローンを操作するスクリプトを配置するための ROS パッケージを作成します．
+First, create a ROS package for placing your drone operation scripts.
 
 ```bash
 $ cd ~/catkin_ws/src/
 $ catkin_create_pkg my_tobas_example
 ```
 
-一度ビルドとソースを行い，パッケージをシェルに読み込ませます．
+After creating your ROS package, proceed with the following steps:
 
 ```bash
 $ catkin build my_tobas_example
 $ source ~/catkin_ws/devel/setup.bash
 ```
 
-次に，スクリプトを ROS パッケージ内に作成します．
-以下は`takeoff_action`アクションで離陸し，`command/pos_vel_acc_yaw`トピックで位置指令を行う Python スクリプトの例です．
-これを`my_tobas_example/scripts/`以下に配置してください．
+This will build your new package and load it into your shell environment.
+Next, you will create a script within your ROS package.
+Here's an example of a Python script that uses the `takeoff_action` action for takeoff
+and the `command/pos_vel_acc_yaw` topic for position commands.
+Please place this script under the my_tobas_example/scripts/ directory.
 
 ```python
 #!/usr/bin/env python3
@@ -118,35 +121,35 @@ INTERVAL = 5.0  # [s]
 
 
 if __name__ == "__main__":
-    # ROSノードの初期化
+    # Initialize ROS node.
     rospy.init_node("command_square_trajectory")
 
-    # 離陸アクションクライアントの作成
+    # Create a takeoff action crient.
     takeoff_client = actionlib.SimpleActionClient("takeoff_action", TakeoffAction)
 
-    # アクションサーバーが起動するのを待つ
+    # Wait for action server.
     takeoff_client.wait_for_server()
 
-    # アクションゴールを作成
+    # Create an action goal.
     takeoff_goal = TakeoffGoal()
     takeoff_goal.target_altitude = ALTITUDE
     takeoff_goal.target_duration = INTERVAL
 
-    # アクションゴールを送信
+    # Send the action goal.
     takeoff_client.send_goal_and_wait(takeoff_goal)
 
-    # アクションの結果を取得
+    # Get the action result.
     takeoff_result: TakeoffResult = takeoff_client.get_result()
     if takeoff_result.error_code < 0:
         rospy.logerr("Takeoff action failed.")
         rospy.signal_shutdown()
 
-    # コマンドのパブリッシャーを作成
+    # Create a command publisher.
     command_pub = rospy.Publisher("command/pos_vel_acc_yaw", PosVelAccYaw, queue_size=1)
 
-    # 正方形の頂点を指令し続ける
+    # Continue to command the coordinates of the vertices of the square.
     while not rospy.is_shutdown():
-        # 頂点1
+        # Vertice 1
         command = PosVelAccYaw()
         command.pos.x = SIDE_LENGTH / 2
         command.pos.y = SIDE_LENGTH / 2
@@ -154,7 +157,7 @@ if __name__ == "__main__":
         command_pub.publish(command)
         rospy.sleep(INTERVAL)
 
-        # 頂点2
+        # Vertice 2
         command = PosVelAccYaw()
         command.pos.x = -SIDE_LENGTH / 2
         command.pos.y = SIDE_LENGTH / 2
@@ -162,7 +165,7 @@ if __name__ == "__main__":
         command_pub.publish(command)
         rospy.sleep(INTERVAL)
 
-        # 頂点3
+        # Vertice 3
         command = PosVelAccYaw()
         command.pos.x = -SIDE_LENGTH / 2
         command.pos.y = -SIDE_LENGTH / 2
@@ -170,7 +173,7 @@ if __name__ == "__main__":
         command_pub.publish(command)
         rospy.sleep(INTERVAL)
 
-        # 頂点4
+        # Vertice 4
         command = PosVelAccYaw()
         command.pos.x = SIDE_LENGTH / 2
         command.pos.y = -SIDE_LENGTH / 2
@@ -179,25 +182,25 @@ if __name__ == "__main__":
         rospy.sleep(INTERVAL)
 ```
 
-スクリプトに実行権限を与えます．
+Grant execution permission to the script.
 
 ```bash
 $ chmod u+x ~/catkin_ws/src/my_tobas_example/scripts/command_square_trajectory_node.py
 ```
 
-スクリプトを実行すると，ドローンが離陸後に正方形の辺上を移動し続けます．
-トピックはドローンの名前空間 (URDF 作成時に設定した`Robot Name`) 内に存在するため，名前空間`__ns`を指定します．
+When the script is executed, the drone will take off and continue moving along the edges of a square.
+Since the topic exists within the drone's namespace (set as `Robot Name` during URDF creation), specify the namespace `__ns`.
 
 ```bash
 $ rosrun my_tobas_example command_square_trajectory_node.py __ns:=f450
 ```
 
-## パラメータチューニング
+## Parameter Tuning
 
 ---
 
-必要であれば飛行中にオンラインでパラメータを調整することができます．
-以下のコマンドで調整用の GUI を立ち上げます:
+If necessary, parameters can be adjusted online during flight.
+Launch the adjustment GUI with the following command:
 
 ```bash
 $ rosrun rqt_reconfigure rqt_reconfigure
@@ -205,6 +208,6 @@ $ rosrun rqt_reconfigure rqt_reconfigure
 
 ![rqt_reconfigure](resources/gazebo_simulation/rqt_reconfigure.png)
 
-オンラインで調整可能な全てのパラメータが表示され，水平バー，エディタ等で値を調整することができます．
-パラメータ名にカーソルを重ねると，パラメータの説明文が表示されます．
-詳しくは<a href=https://wiki.ros.org/rqt_reconfigure>rqt_reconfigure | ROS</a>をご覧ください．
+All adjustable parameters will be displayed and can be adjusted using sliders, editors, etc.
+Hovering the cursor over the parameter name will display a description of the parameter.
+For more details, please visit<a href=https://wiki.ros.org/rqt_reconfigure>rqt_reconfigure | ROS</a>.

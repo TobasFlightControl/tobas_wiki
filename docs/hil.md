@@ -1,32 +1,36 @@
 # Hardware in the Loop (HIL)
 
-Hardware in the Loop (HIL) とは，実際のハードウェア (フライトコントローラやプロポなど) を使用しながらシミュレーションを行うことです．
-これにより，リアルタイムでシステムの挙動をテストすることができ，実機試験の際のリスクを軽減することができます．
+Hardware in the Loop (HIL) refers to conducting simulations
+using actual hardware (such as a flight controller or RC transmitter) in the loop.
+This allows for testing the system's behavior in real-time, thereby reducing the risks associated with real-world trials.
 
-まず，ラズパイで roscore を立ち上げます:
+First, launch roscore on the Raspberry Pi:
 
 ```bash
 pi@navio $ roscore
 ```
 
-次に，外部 PC で Gazebo を立ち上げます．
-ROS マスターはラズパイ側にあるため，環境変数の設定が必要です．
+Next, launch Gazebo on an external PC.
+Since the ROS master is on the Raspberry Pi, you need to set the environment variable accordingly.
 
 ```bash
 user@pc $ export ROS_MASTER_URI=http://(ラズパイのIPアドレス):11311
 user@pc $ roslaunch tobas_f450_config gazebo.launch
 ```
 
-ラズパイで HIL に必要なソフトウェアを立ち上げます．
+On the Raspberry Pi, launch the software necessary for HIL.
 
-<span style="color: red;"><strong>警告: プロペラがモータから取り外されていることを確認してください．</strong></span>
+<span style="color: red;"><strong>Warning: Make sure that the propellers are removed from the motors.</strong></span>
 
 ```bash
 pi@navio $ su
 root@navio $ roslaunch tobas_f450_config hil.launch
 ```
 
-プロポの E_STOP (CH5) を一度オンにしてからオフにすると，プロポから Gazebo 中のドローンが操作できます．
-<span style="color: red;"><strong>E_STOP をもう一度オンにすると緊急停止となり，全てのモータが停止するため注意してください．</strong></span>
-プロポのピッチレバーは南北 (X 軸) ，ロールレバーは東西 (Y 軸) ，スロットルレバーは上下 (Z 軸) の速度にそれぞれ対応しています．
-モータの回転数の変化がシミュレーションと実機で一致していることを確認してください．
+Turning the E_STOP (CH5) on the RC transmitter on and then off will enable control of the drone in Gazebo via the RC transmitter.
+<span style="color: red;"><strong>
+Be aware that turning E_STOP on again will trigger an emergency stop, causing all motors to stop.
+</strong></span>
+On the RC transmitter, the pitch lever corresponds to the north-south (X-axis),
+the roll lever to east-west (Y-axis), and the throttle lever to up-down (Z-axis) velocities.
+Verify that the motor speed changes are consistent between the simulation and the real hardware.

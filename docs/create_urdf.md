@@ -1,8 +1,8 @@
-# URDF 作成
+# Create URDF
 
-前ページで作成した CAD モデルを元に URDF (Unified Robot Description Format, ロボット記述言語) を作成します．
-URDF は剛体多リンク系のリンク構造や質量特性等を XML 形式で記述したものです．
-今回は以下のような URDF を作成します:
+We will create a URDF (Unified Robot Description Format, a robot description language) based on the CAD model .
+URDF is a format that describes the link structure and mass characteristics of a rigid multi-link system in XML format.
+This time, we will create the following URDF:
 
 ```xml
 <robot name="f450">
@@ -188,12 +188,11 @@ URDF は剛体多リンク系のリンク構造や質量特性等を XML 形式�
 </robot>
 ```
 
-frame, battery, propeller といったリンクと，それらを繋ぐジョイントが定義されていることがわかります．
+Links such as frame, battery, and propeller, and the joints connecting them are defined.
 
-URDF の作成方法としては，エディタを用いて直接編集することが一般的ですが，
-今回は GUI で URDF が作成できるツールである URDF Builder を使用します．
+For creating a URDF, it's common to directly edit using an editor. However, this time we will use URDF Builder, a tool that allows for URDF creation via a GUI.
 
-ターミナルから URDF Builder を起動します:
+Launch URDF Builder from the terminal:
 
 ```bash
 $ roslaunch urdf_builder urdf_builder.launch
@@ -201,174 +200,170 @@ $ roslaunch urdf_builder urdf_builder.launch
 
 ![launch](resources/create_urdf/launch.png)
 
-新しく URDF を作成するため，`New`ボタンを押します．
-すると，`Link`ツリーに`root`リンクが追加されます．
-今回は使いませんが，`Load`ボタンを押すと作成した URDF をロードして編集することができます．
+To create a new URDF, press the `New` button.
+A link named `root` will be added to the Link tree.
+Although not used this time, pressing the `Load` button allows you to load and edit a previously created URDF.
 
 ![new](resources/create_urdf/new.png)
 
-画面左上の`Robot Name`に適当な名前を設定します．
-今回はそのまま`f450`とします．
+Set an appropriate name in the `Robot Name` at the top left of the screen.
+This time, we will simply use `f450`.
 
 ![robot_name](resources/create_urdf/robot_name.png)
 
-## フレームリンクの設定
+## Setting Up the Frame Link
 
 ---
 
-`Link`ツリーで右クリックし，`Add Link`を選択するとダイアログが現れます．
-`Link Name`に`frame`，`Joint Name`に`frame_joint`，`Parent`に`root`を選択して `OK` を押します．
-すると，ツリーに`frame`リンクが追加されます．
+Right-click on the `Link` tree and select `Add Link` to open a dialog.
+Enter `frame` for `Link Name`, `frame_joint` for `Joint Name`, select `root` for `Parent`, and press `OK`.
+Then the `frame` link will be added to the tree.
 
 ![frame/add_link](resources/create_urdf/frame/add_link.png)
 
-`frame`リンクの設定を行います．
-ツリーの`frame`をクリックすると，左下に設定画面が現れます．
+Configure the `frame` link.
+Clicking on `frame` in the tree displays the settings screen at the bottom left.
 
-`General`タブを選択すると，先程設定したリンク名が記述されています．
+Select the `General` tab, and you will see the link name set earlier.
 
 ![frame/general](resources/create_urdf/frame/general.png)
 
-`Joint`タブではジョイントの設定を行います．
-`Name`には先程設定したジョイント名が記述されています．
-`Parent`には先程設定した`root`が選択されています．
-`frame`は`root`に固定された基準のリンクとするため，`Type`には`Fixed`を選択し，`Origin`を原点に設定します．
+In the `Joint` tab, configure the joint settings.
+The joint name set earlier is displayed in `Name`.
+The previously set `root` is selected for `Parent`.
+As `frame` is a reference link fixed to `root`, select `Fixed` for `Type` and set the `Origin` to the origin.
 
 ![frame/joint](resources/create_urdf/frame/joint.png)
 
-`Visual`タブではリンクの視覚情報の設定を行います．
-`Add`ボタンを押すと，Visual オブジェクトが追加されます．
-複数の Visual を組み合わせることもできますが，今回は 1 つで構いません．
-CAD でのモデリングの際に座標系を NWU 座標系に合わせているため，`Origin`は原点のままで構いません．
-もし CAD の座標系がずれていると，ここで調整が必要になります．
-`Geometry`の`Type`に`Mesh`を選択し，`Path`の`Browse`ボタンから前ページで作成したフレームのメッシュファイルを選択すると，
-モデルビューに可視化されます．
-URDF は SI 単位系より長さの単位は m なのに対し，Fusion360 では mm に設定していたため，実際の 1000 倍のスケールで表示されています．
-モデルビューの格子の 1 マスは 10cm なので，非常に大きく表示されていることがわかります．
-そこで，`Scale`を 0.001 に設定することでメッシュファイルと URDF のスケールを一致させます．
-`Material`では Visual オブジェクトの色やテクスチャを設定できます．
-あまり重要ではないのですが，プロペラが白なので適当に黒 ((R, G, B) = (0, 0, 0)) に設定します．
+In the `Visual` tab, set the visual information of the link.
+Press the `Add` button to add a Visual object.
+Multiple Visuals can be combined, but one is enough for now.
+Since the coordinate system was aligned with the NWU coordinate system during CAD modeling,
+the `Origin` can remain at the origin.
+If the CAD coordinate system is misaligned, it needs adjustment here.
+Select `Mesh` for `Geometry` type and choose the mesh file of the frame through the `Browse` button in `Path`.
+This will visualize the model.
+URDF uses the SI unit system, so the length unit is m, while Fusion360 was set to mm,
+so it appears at a scale of 1000 times larger than actual size.
+Each grid in the model view is 10 cm, so it appears very large.
+Therefore, set the `Scale` to 0.001 to match the mesh file scale with the URDF.
+In `Material`, you can set the color or texture of the Visual object.
+Although it's not very important, since the propeller is white, set it arbitrarily to black ((R, G, B) = (0, 0, 0)).
 
 ![frame/visual_1](resources/create_urdf/frame/visual_1.png)
 ![frame/visual_2](resources/create_urdf/frame/visual_2.png)
 
-`Collision`タブではリンクの接触判定を行うための領域を設定します．
-`Add`ボタンを押すと，Collison オブジェクトが追加されます．
-Visual と同じく複数の Collision を組み合わせることもできます．
-`Geometry`の`Type`に`Box`を選択します．
-Visual と同じく`Mesh`を選択してもよいのですが，
-複雑なメッシュだと接触判定の際に計算が不安定になったり処理が重くなったりする可能性があるため，
-特別な理由が無い限りは`Mesh`以外のプリミティブ形状で近似することを勧めます．
-モデルビューを見ながら，Box の大きさと位置を Visual を丁度覆い隠すくらいに設定します．
-今回は以下の画像のように設定しました．
+In the `Collision` tab, set the collision detection area of the link.
+Press the `Add` button to add a Collision object.
+Like Visual, multiple Collisions can be combined.
+Select `Box` for `Geometry` type.
+It is possible to select `Mesh`,
+but complex meshes might cause unstable calculations or heavy processing during collision detection,
+so it's recommended to approximate with a primitive shape unless there's a special reason.
+Adjust the size and position of the Box so that it just covers the Visual.
+The settings are as shown in the following images.
 
 ![frame/collision_1](resources/create_urdf/frame/collision_1.png)
 ![frame/collision_2](resources/create_urdf/frame/collision_2.png)
 
-`Inertial`タブではリンクの質量特性を設定します．
-`Origin`にはリンクの重心を，`Mass`にはリンクの質量を，`Inertia`にはリンクの重心回りの慣性テンソルの要素を設定します．
-CAD でのモデリングの際に座標系を NWU 座標系に合わせているため，CAD のプロパティから取得した値をそのまま転記すればよいです．
-もし CAD の座標系がずれていると，ここで調整が必要になります．
-Visual と異なり Inertial は可視化されないため，座標系がずれていると確認が困難です．
-また，全て SI 単位系 (m, kg, kg\*m^2) であることに注意してください．
+In the `Inertial` tab, set the mass properties of the link.
+Set the center of mass in `Origin`, the mass of the link in `Mass`,
+and the elements of the inertia tensor about the center of mass in `Inertia`.
+Since the coordinate system was aligned with the NWU coordinate system during CAD modeling,
+you can directly transcribe the values obtained from the CAD properties.
+If the CAD coordinate system is misaligned, adjustment here is necessary.
+Unlike Visual, Inertial is not visualized, so it's difficult to confirm if there's a misalignment.
+Also, note that all units are in the SI system (m, kg, kg\*m^2).
 
 ![frame/inertial](resources/create_urdf/frame/inertial.png)
 
-## バッテリーリンクの設定
+## Setting Up the Battery Link
 
 ---
 
-`Add Link`からバッテリーリンクを追加します．
-`Link Name`を`battery`，`Joint Name`を`battery_joint`，`Parent`を`frame`にします．
+Add the battery link using `Add Link`.
+Set `Link Name` to `battery`, `Joint Name` to `battery_joint`, and `Parent` to `frame`.
 
 ![battery/add_link](resources/create_urdf/battery/add_link.png)
 
-`Joint`タブを編集する際に視覚情報があったほうが良いので，まず`Visual`タブを開きます．
-`Add`ボタンを押すと，Visual オブジェクトが追加されます．
-`Origin`は原点のままにします．
-LiPo バッテリーはほぼ直方体なので，メッシュファイルは使わずに`Geometry`の`Type`に`Box`を選択します．
-`Length`，`Width`，`Height`に実際のバッテリーの大きさを入力します．
-`Material`は実際のバッテリーが青を基調としているため青 ((R, G, B) = (0, 0, 1)) に設定します．
+It's good to have visual information when editing the `Joint` tab, so first open the `Visual` tab.
+Press the `Add` button to add a Visual object.
+Leave the `Origin` at the origin.
+Since LiPo batteries are almost rectangular, select `Box` for `Geometry` type instead of using a mesh file.
+Input the actual size of the battery in `Length`, `Width`, `Height`.
+Set `Material` to blue ((R, G, B) = (0, 0, 1)), as the actual battery is predominantly blue.
 
 ![battery/visual_1](resources/create_urdf/battery/visual_1.png)
 ![battery/visual_2](resources/create_urdf/battery/visual_2.png)
 
-`Joint`タブでジョイントの設定を行います．
-`battery`は`frame`に固定されているため，`Type`には`Fixed`を選択します．
-モデルビューを見ながら`Origin`を調整します．
+In the `Joint` tab, configure the joint settings.
+As the `battery` is fixed to the `frame`, select `Fixed` for `Type`.
+Adjust the `Origin` while looking at the model view.
 
 ![battery/joint_1](resources/create_urdf/battery/joint_1.png)
 ![battery/joint_2](resources/create_urdf/battery/joint_2.png)
 
-`Collision`タブでリンクの接触判定領域を設定します．
-`Add`ボタンを押すと，Collison オブジェクトが追加されます．
-`Origin`と`Geometry`を`Visual`と全く同じように設定します．
+In the `Collision` tab, set the collision detection area of the link.
+Press the `Add` button to add a Collision object.
+Set the `Origin` and `Geometry` exactly the same as in `Visual`.
 
 ![battery/collision](resources/create_urdf/battery/collision.png)
 
-`Inertial`タブでリンクの質量特性を設定します．
-バッテリーの質量特性を直方体で近似することにします．
-すると重心は`Joint`の原点に一致するため，`Origin`の要素を全て 0 に設定します．
-`Mass`にバッテリーの質量を入力します．
-`Inertia`の`Box Inertia`をクリックするとダイアログが表示され，
-`X`，`Y`，`Z`に先程の`Length`，`Width`，`Height`をそれぞれ入力すると，直方体の慣性テンソルがタブ内に反映されます．
-`ixx`に比べて`iyy`と`izz`が大きく，矛盾は無さそうだということがわかります．
+In the `Inertial` tab, set the mass properties of the link.
+Approximate the mass properties of the battery with a rectangular prism.
+The center of mass then coincides with the joint origin, so set all elements of `Origin` to 0.
+Input the mass of the battery in `Mass`.
+Clicking on `Box Inertia` in `Inertia` opens a dialog where you input `Length`, `Width`, `Height` from earlier,
+and the inertia tensor of the rectangular prism is reflected in the tab.
+It's noticeable that `iyy` and `izz` are larger than `ixx`, which seems consistent.
 
 ![battery/inertial_1](resources/create_urdf/battery/inertial_1.png)
 ![battery/inertial_2](resources/create_urdf/battery/inertial_2.png)
 
-このように，プリミティブ形状のみを用いてリンクを定義することもできます．
-リンクをパラメトリックに記述でき，修正が容易になるという利点があるため，試作段階では積極的に活用すべきでしょう．
+In this way, links can be defined using only primitive shapes.
+Describing links parametrically allows for easy modifications and should be actively utilized,
+especially during the prototyping phase.
 
-## プロペラリンクの設定
+## Setting Up the Propeller Link
 
 ---
 
-`Add Link`からプロペラリンクを追加します．
-`Link Name`を`propeller1`，`Joint Name`を`propeller1_joint`，`Parent`を`frame`にします．
+Add a propeller link from `Add Link`.
+Set `Link Name` to `propeller1`, `Joint Name` to `propeller1_joint`, and `Parent` to `frame`.
 
 ![propeller/add_link](resources/create_urdf/propeller/add_link.png)
 
-`Visual`タブを開き，`Add`ボタンで Visual オブジェクトを追加します．
-`Origin`は原点のままにします．
-`Geometry`の`Type`に`Mesh`を選択し，`Path`を設定します．
-必要に応じて`Scale`を修正します．
-`Material`は実物と同じく白 ((R, G, B) = (1, 1, 1)) に設定します．
+Open the `Visual` tab and add a Visual object with the `Add` button.
+Leave `Origin` as the default.
+Select `Mesh` as the `Type` under `Geometry` and set the `Path`.
+Adjust the `Scale` if necessary.
+Set the `Material` to white ((R, G, B) = (1, 1, 1)), matching the real object.
 
 ![propeller/visual](resources/create_urdf/propeller/visual.png)
 
-`Joint`タブでジョイントの設定を行います．
-プロペラはフレームに対して無限回転するため，`Type`には`Continuous`を選択します．
-モデルビューを見ながら`Origin`を調整します．
-プロペラは Z 軸まわりに回転するため，`Axis`を (X, Y, Z) = (0, 0, 1) とします．
+Configure the joint in the `Joint` tab.
+Since the propeller rotates infinitely relative to the frame, select `Continuous` for `Type`.
+Adjust the `Origin` while looking at the model view.
+Since the propeller rotates around the Z-axis, set the `Axis` to (X, Y, Z) = (0, 0, 1).
 
 ![propeller/joint_1](resources/create_urdf/propeller/joint_1.png)
 ![propeller/joint_2](resources/create_urdf/propeller/joint_2.png)
 
-`Collision`タブでリンクの接触判定領域を設定します．
-`Add`ボタンを押すと，Collison オブジェクトが追加されます．
-`Geometry`の`Type`に`Cylinder`を選択し，
-`Origin`と`Cylinder`の`Radius`，`Length`を丁度 Visual オブジェクトを覆い隠すくらいに調整します．
+Set the contact detection area of the link in the `Collision` tab. Pressing the `Add` button adds a Collision object. Select `Cylinder` as the `Type` under `Geometry`, and adjust the `Origin`, `Radius`, and `Length` of the `Cylinder` to just cover the Visual object.
 
 ![propeller/collision_1](resources/create_urdf/propeller/collision_1.png)
 ![propeller/collision_2](resources/create_urdf/propeller/collision_2.png)
 
-`Inertial`タブでリンクの質量特性を設定します．
-`Collision`と同じく円柱で近似することにします．
-`Origin`を`Collision`のそれと等しい値に設定し，`Mass`にプロペラの質量を入力します．
-`Inertia`の`Cylinder Inertia`をクリックするとダイアログが表示され，
-`Radius`，`Length`に`Collision`のそれらをそれぞれ入力すると，円柱の慣性テンソルがタブ内に反映されます．
-`izz`に比べて`ixx`と`iyy`が大きく，矛盾は無さそうだということがわかります．
+Set the mass properties of the link in the `Inertial` tab. Approximate it with a cylinder, similar to `Collision`. Set the `Origin` to the same value as `Collision`, and enter the mass of the propeller in `Mass`. Clicking on `Cylinder Inertia` under `Inertia` opens a dialog. Entering the `Radius` and `Length` of `Collision` reflects the inertia tensor of the cylinder in the tab. It is apparent that `ixx` and `iyy` are larger compared to `izz`, which seems consistent.
 
 ![propeller/inertial_1](resources/create_urdf/propeller/inertial_1.png)
 ![propeller/inertial_2](resources/create_urdf/propeller/inertial_2.png)
 
-プロペラは全部で 4 枚なので他の 3 枚の設定を行うのですが，内容はほとんど同じなので`propeller1`をクローンすると早いです．
-`propeller1`が選択された状態で`Link`ツリーを右クリックし，`Clone Link`を選択すると，
-オリジナルとリンク・ジョイント名のみが異なる`propeller1_1`が作成されます．
-今回，それぞれのプロペラはジョイント原点の符号と`Visual`のメッシュファイルのみが異なります．
-`propeller1_1`の`Joint`タブから`Origin`の符号を修正し，`Visual`タブの`Geometry`の`Path`を修正します．
-同じ要領でもう 2 枚プロペラを増やし，合計 4 枚のプロペラを設定します．
+Since there are four propellers in total, the settings for the other three are mostly the same,
+so cloning `propeller1` is faster.
+Right-click on the `Link` tree with `propeller1` selected and choose `Clone Link`.
+This creates `propeller1_1`, which is identical to the original except for the link and joint names.
+In this case, the only differences between each propeller are the signs of the joint origin and the mesh file in `Visual`. Modify the sign of `Origin` in the `Joint` tab of `propeller1_1` and adjust the `Path` in the `Geometry` of the `Visual` tab. Follow the same procedure to add two more propellers, resulting in a total of four propellers set up.
 
 ![propeller/clone](resources/create_urdf/propeller/clone.png)
 
@@ -376,8 +371,8 @@ LiPo バッテリーはほぼ直方体なので，メッシュファイルは使
 
 ---
 
-`Save`または`Save As`ボタンを押すとダイアログが表示されます．
-適当な名前を設定し，`Save`ボタンを押して URDF を保存します．
-保存できたら URDF Builder は閉じて構いません．
+When you press the `Save` or `Save As` button, a dialog will appear.
+Set an appropriate name and press the `Save` button to save the URDF.
+Once saved, you can close the URDF Builder.
 
 ![save](resources/create_urdf/save.png)

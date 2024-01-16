@@ -1,118 +1,125 @@
-# ドローンの 3D モデリング
+# 3D Modeling of the Drone
 
-3D CAD を用いてドローンのモデルを作成します．
-使用する 3D CAD に指定はありませんが，URDF を作成するためにメッシュファイル (\*.stl 又は \*.dae) での出力と質量解析ができるものが望ましいです．
-このチュートリアルでは Autodesk の Fusion 360 を使用します．
+Using 3D CAD software, create a model of the drone.
+There's no specific requirement for the 3D CAD software,
+but it's preferable to use one that can export mesh files (_.stl or _.dae) and perform mass analysis for URDF creation.
+This tutorial will use Autodesk Fusion 360.
 
-## 構成要素の選定に関する注意点
+## Points to Note When Selecting Drone Components
 
 ---
 
-ドローンの構成要素を選定する際には，以下の点に注意してください．
+When selecting components for the drone, pay attention to the following:
 
 ### ESC
 
-1000us ~ 2000us の PWM を受け付ける必要があります．
-BLHeli-S のファームウェアならば実績があります．
+The ESC should accept PWM signals ranging from 1000us to 2000us.
+BLHeli-S firmware is a proven choice.
 
-### プロペラ
+### Propeller
 
-制御性能を高めるため，空力特性が分かるものが望ましいです．
+For enhanced control performance, it's desirable to use propellers with known aerodynamic characteristics.
+Either use a thrust measuring device such as
 <a href=https://www.tytorobotics.com/pages/series-1580-1585 target="_blank">Series 1585 Thrust Stand</a>
-のような推力測定機で測定するか，そうでなければなるべく
-<a href=https://m-selig.ae.illinois.edu/props/propDB.html target="_blank">UIUC Propeller Data Site</a>
-でデータが得られるプロペラを使用してください．
+or choose propellers with data available on
+<a href=https://m-selig.ae.illinois.edu/props/propDB.html target="_blank">UIUC Propeller Data Site</a>.
 
-### RC 受信機
+### RC Receiver
 
-8 チャンネル以上の S.BUS に対応しているものを使用してください．
-今回は<a href=https://www.amazon.co.jp/UltraPower-Corona-R8SF-S-BUS-S-FHSS/dp/B087YZYN9W target="_blank">Corona R8SF</a>
-を使用します．
+Use an RC receiver compatible with S.BUS and supports at least 8 channels.
+For this tutorial,
+<a href=https://www.amazon.co.jp/UltraPower-Corona-R8SF-S-BUS-S-FHSS/dp/B087YZYN9W target="_blank">Corona R8SF</a>
+is used.
 
-### RC 送信機
+### RC Transmitter
 
-RC 受信機が対応しているプロトコルに対応しているものを使用してください．
-今回は<a href=https://www.rc.futaba.co.jp/products/detail/I00000006 target="_blank">Futaba T10J</a>を使用します．
-こちらは R8SF の S-FHSS プロトコルに加え，双方向通信が可能な T-FHSS AIR に対応しています．
+Make sure the RC transmitter is compatible with the protocol of the RC receiver.
+In this case, <a href=https://www.rc.futaba.co.jp/products/detail/I00000006 target="_blank">Futaba T10J</a>,
+which supports the S-FHSS protocol used by R8SF, as well as T-FHSS AIR for bidirectional communication, is used.
 
-## モデリングに関する注意点
-
----
-
-モデリングの際は，以下の点に注意してください．
-
-### 1. 剛体ごとにモデルを作成する
-
-URDF ではドローンを含むロボットを剛体多リンク系として表現します．
-そのため，CAD モデルにおいても，最も粗くても剛体ごとにモデルを作成する必要があります．
-但し，URDF では固定関節が設定できるため，1 つの剛体を複数に分割することも可能です．
-
-### 2. 各モデルの座標軸をなるべく機体のベース座標系に合わせる
-
-URDF が作成しやすくなり，ランタイムにも見通しが良くなります．
-Gazebo (物理シミュレータ) と同じく，NWU 座標系 (X 軸を前，Y 軸を左，Z 軸を上) に一致させることをおすすめします．
-
-### 3. 質量特性を得るために各モデルに材質を設定する
-
-材質が不明な場合やモータなど材質が均一でない場合は，以下のような代替手段をとることができます．
-
-1. モデルの実際の質量から平均密度を計算し，その密度をもつ仮想的な材質を設定
-2. 材質が不明な部分をリンクとして分離し，URDF を作成する際に質量とプリミティブ形状 (直方体，球，円柱) で近似的に質量特性を求める
-
-### 4. モデルは正確でなくてもよい
-
-制御器にはモデル化誤差に対するロバスト性があるため，モデルの質量特性は必ずしも正確である必要はありません．
-モデルと実機をなるべく一致させるよう努力すべきですが，理論上は誤差 50%以内なら安定性を損なわないと言えます．
-例えば RC 受信機やケーブルは軽量なので，今回はモデルから省略することにします．
-
-## クアッドコプターのモデリング
+## Points to Note in Modeling
 
 ---
 
-以下がアセンブリ全体の画像です．
-<a href=https://www.amazon.co.jp/WORK-F450-Brushless-Transmitter-Accessory/dp/B09SZ7LNXB/ref=asc_df_B09SZ7LNXB/?tag=jpgo-22&linkCode=df0&hvadid=622955507000&hvpos=&hvnetw=g&hvrand=8762434071962657181&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009314&hvtargid=pla-1931934789257&psc=1&mcid=9454d6926b59324992d70be300c73134 target="\_blank">F450 フレームキット</a>を用いています．
+Keep the following in mind when modeling:
+
+### 1. Create a Model for Each Rigid Body
+
+In URDF, robots including drones are represented as multi-link rigid body systems.
+Therefore, even at the coarsest level, it's necessary to create a model for each rigid body.
+However, URDF allows the setting of fixed joints, so a single rigid body can be split into multiple parts.
+
+### 2. Align Each Model's Axes with the Base Coordinate System of the Drone
+
+This makes it easier to create URDF and provides clarity during runtime.
+It's recommended to align with the NWU coordinate system (X-axis forward, Y-axis left, Z-axis up),
+as used in Gazebo (a physical simulator).
+
+### 3. Set Materials for Each Model to Obtain Mass Properties
+
+If the material is unknown or the part, like a motor, is not uniform in material, consider alternative methods:
+
+1. Calculate the average density from the actual mass of the model and set a virtual material with this density.
+2. For parts with unknown materials, separate them as links and approximate their mass properties
+   with mass and primitive shapes (box, sphere, cylinder) when creating the URDF.
+
+### 4. The Model Doesn't Have to Be Exact
+
+Control systems have robustness to modeling errors, so the mass properties of the model don't have to be exact.
+While it's important to match the model and the real drone as closely as possible,
+theoretically, a deviation of up to 50% in mass properties won't significantly affect stability.
+For instance, lightweight components like the RC receiver or cables can be omitted from the model, as is done in this tutorial.
+
+## Modeling a Quadcopter
+
+---
+
+Here is an image of the entire assembly.
+<a href=https://www.amazon.co.jp/WORK-F450-Brushless-Transmitter-Accessory/dp/B09SZ7LNXB/ref=asc_df_B09SZ7LNXB/?tag=jpgo-22&linkCode=df0&hvadid=622955507000&hvpos=&hvnetw=g&hvrand=8762434071962657181&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009314&hvtargid=pla-1931934789257&psc=1&mcid=9454d6926b59324992d70be300c73134 target="\_blank">F450 Frame Kit</a>
+is used for this model.
 
 ![F450 Assembly](resources/model_drone/assem.png)
 
-注意点 1 にあるように，最も粗くても剛体単位でモデルを分ける必要があります．
-今回は，4 枚のプロペラ，バッテリー，それ以外で合計 6 つのモデルを作成します．
+As per point 1, the model needs to be divided into at least as many parts as there are rigid bodies.
+In this case, six models are created: four propellers, a battery, and the rest.
 
-### プロペラのモデリング
+### Modeling the Propellers
 
-キットに付属している<a href=https://www.amazon.co.jp/DJI-%E3%83%89%E3%83%AD%E3%83%BC%E3%83%B3%E7%94%A8%E3%83%97%E3%83%AD%E3%83%9A%E3%83%A9-2%E6%9E%9A%E7%B5%84-PHANTOM-Part9/dp/B00YOB2AXQ/ref=sr_1_7_sspa?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=28BXMOF90YJXG&keywords=phantom3+9450&qid=1704516647&s=toys&sprefix=phantom3+9450%2Ctoys%2C160&sr=1-7-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1&smid=A1MUI7UFGML151 target="\_blank"> Phantom3 9450</a>を使用します．
-<a href=https://grabcad.com target="_blank">GrabCAD</a>から良さげなモデルをダウンロードし，Fusion360 にインポートします．
-最終的なアセンブリを見越して回転軸が Z 軸に一致するように配置し，材質を ABS に設定します．
-プロパティを見ると質量が約 10g になっており，実物と概ね一致することが確認できました．
-画像は時計回りですが，反時計回りのプロペラについても同様の操作を行います．
+The kit includes Phantom3 9450.
+A suitable model is downloaded from <a href=https://grabcad.com target="_blank">GrabCAD</a> and imported into Fusion 360.
+The propeller is positioned so that its rotational axis aligns with the Z-axis, and the material is set to ABS.
+Upon checking the properties, the mass is approximately 10g, which roughly matches the actual propeller.
+This process is repeated for both clockwise and counter-clockwise propellers.
 
 ![Phantom 9450 CW](resources/model_drone/propeller.png)
 
-### バッテリーのモデリング
+### Modeling the Battery
 
-<a href=https://www.amazon.co.jp/RC%E3%83%AA%E3%83%9D%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC30C-2250mAh-XT60%E3%83%97%E3%83%A9%E3%82%B0%E4%BB%98%E3%81%8D-%E9%A3%9B%E8%A1%8C%E6%A9%9F%E3%82%AF%E3%83%AF%E3%83%83%E3%83%89%E3%82%B3%E3%83%97%E3%82%BF%E3%83%BC%E3%83%98%E3%83%AA%E3%82%B3%E3%83%97%E3%82%BF%E3%83%BC%E3%83%89%E3%83%AD%E3%83%BC%E3%83%B3-%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%9B%E3%83%93%E3%83%BC/dp/B08X1SDHZF target="_blank">SIGP 3S 2250mAh 30C</a>を使用します．
-バッテリーはフレームに固定されているためフレームに含めても良かったのですが，
-後でバッテリーだけ交換する可能性を考えて今回はバッテリーを独立したモデルとして作成します．
-GrabCAD にモデルが無かったため，直方体にフィレットをつけただけの簡単なモデルを作成しました．
-注意点 2 にあるように， NWU 座標系に一致するように配置します．
-注意点 3 にあるように材質を設定したいのですが，バッテリーの材質はわからないしそもそも均一ではありません．
-そこで，バッテリーについては代替手段 2 をとることにし，CAD では材質を設定せず形を作るのみとします．
+<a href=https://www.amazon.co.jp/RC%E3%83%AA%E3%83%9D%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC30C-2250mAh-XT60%E3%83%97%E3%83%A9%E3%82%B0%E4%BB%98%E3%81%8D-%E9%A3%9B%E8%A1%8C%E6%A9%9F%E3%82%AF%E3%83%AF%E3%83%83%E3%83%89%E3%82%B3%E3%83%97%E3%82%BF%E3%83%BC%E3%83%98%E3%83%AA%E3%82%B3%E3%83%97%E3%82%BF%E3%83%BC%E3%83%89%E3%83%AD%E3%83%BC%E3%83%B3-%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%9B%E3%83%93%E3%83%BC/dp/B08X1SDHZF target="_blank">SIGP 3S 2250mAh 30C</a> is used.
+Although it could have been integrated into the frame model since it is fixed to the frame,
+it was decided to model the battery as a separate entity to account for the possibility of future battery replacements.
+Since there was no model available on GrabCAD, a simple model was created with a rectangular shape and fillets.
+Aligned with the NWU coordinate system as per point 2, and since the battery material is not uniform and unknown,
+it was decided to forego setting a material in CAD, as mentioned in alternative approach 2.
 
 ![SIGP 3S 2250mAh 30C](resources/model_drone/lipo.png)
 
-### フレームのモデリング
+### Modeling the Frame
 
-プロペラを除く部分全てをフレームとして 1 つのモデルにします．
-プロペラと同じく GrabCAD から STEP ファイルをダウンロードし，Fusion360 にインポートします．
-GPS マウントやフライトコントローラとして使用するラズパイ 4B + Navio2 等も適当に見つけてインポートします．
-注意点 2 にあるように，機体座標系を NWU 座標系に一致するように配置します．
-注意点 3 にあるように各パーツの材質を設定します．
-アームやボルトは 材質が均一ですが，その他のモータ，ESC，バッテリー等は材質がわからないため，代替手段 1 で仮想的な材質を設定します．
-プロパティを見ると質量が約 635g になっており，実物と概ね一致することが確認できました．
+All parts except the propellers are combined into one model for the frame.
+Like the propellers, a STEP file for the frame was downloaded from GrabCAD and imported into Fusion 360.
+Additional components such as the GPS mount and the Raspberry Pi 4B + Navio2
+used as the flight controller were also found and imported.
+The assembly is positioned to match the NWU coordinate system, and materials are set for each part.
+While the arms and bolts have uniform materials, other parts like motors, ESCs,
+and the battery are assigned virtual materials using alternative approach 1.
+The total mass of the frame assembly is approximately 635g, closely matching the actual frame.
 
 ![F450 Frame](resources/model_drone/frame.png)
 
-### メッシュファイルとプロパティの出力
+### Exporting Mesh Files and Properties
 
-作成したモデルのメッシュファイルをそれぞれ出力し，原点位置や原点周りの質量特性をメモしておきます．
-Fusion360 は Windows で動作していますがこれ以降は Ubuntu での作業になるため，
-それらのファイルを Google Drive にアップロードするなどして Ubuntu からも参照できるようにします．
+The mesh files for each model created are exported,
+and notes are made of the origin positions and mass properties around the origins.
+Since Fusion 360 operates on Windows and subsequent work will be done on Ubuntu,
+these files are uploaded to Google Drive or a similar service to ensure they are accessible from Ubuntu.

@@ -1,17 +1,19 @@
 # ROS API
 
-全ての API を網羅してはおらず，主要なものについてのみ記載しています．
-詳しくは実行時に`$ rostopic list`等でご確認ください．
+It is important to note that not all APIs are covered in the documentation or instructions provided.
+The information typically focuses on the primary or most commonly used APIs.
+To get a comprehensive understanding of all available APIs and their specific functions,
+it is advisable to use ROS commands such as $ rostopic list during runtime.
 
-## トピック
+## Topics
 
 ---
 
-### センサデータ
+### Sensor Data
 
 #### battery (tobas_msgs/Battery)
 
-バッテリーの状態．
+Battery state.
 
 ```txt
 std_msgs/Header header
@@ -21,7 +23,7 @@ float64 current  # [A]
 
 #### cpu (tobas_msgs/Cpu)
 
-CPU の状態．
+CPU state.
 
 ```txt
 std_msgs/Header header
@@ -30,7 +32,7 @@ float64 temperature  # [celsius]
 
 #### rc_input (tobas_msgs/RCInput)
 
-RC レシーバーから取得した RC 入力．
+RC Input received via S.BUS.
 
 ```txt
 std_msgs/Header header
@@ -45,7 +47,7 @@ bool gpsw       # CH8: General Purpose Switch
 
 #### imu (sensor_msgs/Imu)
 
-6 軸 IMU (ジャイロ + 加速度)．
+Gyro and acceleration measured by a 6-axis IMU.
 
 ```txt
 std_msgs/Header header
@@ -59,7 +61,7 @@ float64[9] linear_acceleration_covariance  # [m^2/s^4]
 
 #### magnetic_field (sensor_msgs/MagneticField)
 
-3 軸の地磁気．
+3-axis geomagnetism measured by a magnetometer
 
 ```txt
 std_msgs/Header header
@@ -69,7 +71,7 @@ float64[9] magnetic_field_covariance
 
 #### air_pressure (sensor_msgs/FluidPressure)
 
-大気圧．
+Air pressure measured by a barometer
 
 ```txt
 std_msgs/Header header
@@ -79,7 +81,7 @@ float64 variance        # [Pa^2]
 
 #### gps (tobas_msgs/Gps)
 
-GNSS から取得した位置と速度．
+GNSS position and velocity.
 
 ```txt
 std_msgs/Header header
@@ -95,7 +97,7 @@ float64[9] velocity_covariance      # [m^2/s^2]
 
 #### point_cloud (sensor_msgs/PointCloud)
 
-LiDAR から取得した点群データ
+Point cloud obtained from a LiDAR.
 
 ```txt
 std_msgs/Header header
@@ -105,7 +107,7 @@ sensor_msgs/ChannelFloat32[] channels
 
 #### external_odometry (nav_msgs/Odometry)
 
-VIO (Visual Inertial Odometry) などの外部の位置推定機器から取得したオドメトリ．
+The odometry obtained from external position estimation devices such as Visual Inertial Odometry (VIO).
 
 ```txt
 std_msgs/Header header
@@ -116,7 +118,7 @@ geometry_msgs/TwistWithCovariance twist
 
 #### rotor_speeds (tobas_msgs/RotorSpeeds)
 
-各モータの回転数．
+Rotation speeds of all rotors.
 
 ```txt
 std_msgs/Header header
@@ -125,7 +127,7 @@ float64[] speeds  # [rad/s]
 
 #### joint_states (sensor_msgs/JointState)
 
-カスタムジョイントの状態．
+The state of custom joints.
 
 ```txt
 std_msgs/Header header
@@ -135,16 +137,16 @@ float64[] velocity  # [m/s or rad/s]
 float64[] effort    # [N or Nm]
 ```
 
-### 状態推定
+### State Estimation
 
 #### odom (tobas_msgs/Odometry)
 
-状態推定器によって推定された，起動位置に対する位置，速度，加速度．
+The position, velocity, and acceleration estimated by the state estimator, relative to the startup location.
 
 ```txt
 std_msgs/Header header
 
-Pose pose
+tobas_msgs/Pose pose
 tobas_kdl_msgs/Twist twist
 tobas_kdl_msgs/Accel accel
 
@@ -158,7 +160,7 @@ float64[9] angular_acceleration_covariance  # [rad^2/s^4]
 
 #### wind (tobas_msgs/Wind)
 
-推定された風速．
+The estimated wind speed.
 
 ```txt
 std_msgs/Header header
@@ -167,11 +169,11 @@ tobas_kdl_msgs/Vector vel  # [m/s]
 
 ### コマンド
 
-ユーザはこれらのトピックを発行することでドローンを操作することができます．
+Users can control the drone by publishing to these topics.
 
 #### command/throttles (tobas_msgs/Throttles)
 
-各 ESC に指令されるスロットル．
+Throttle commanded to each ESC.
 
 ```txt
 std_msgs/Header header
@@ -180,7 +182,7 @@ float64[] data  # [0, 1]
 
 #### command/deflections (tobas_msgs/ControlSurfaceDeflections)
 
-固定翼の舵角．
+Control surface deflections for fixed-wing.
 
 ```txt
 std_msgs/Header header
@@ -190,10 +192,10 @@ float64[] deflections  # [deg]
 #### command/pos_vel_acc_yaw (tobas_msgs/PosVelAccYaw)
 
 ```txt
-CommandLevel level
+tobas_msgs/CommandLevel level
 
-FrameId vel_frame
-FrameId acc_frame
+tobas_msgs/FrameId vel_frame
+tobas_msgs/FrameId acc_frame
 
 tobas_kdl_msgs/Vector pos  # [m]
 tobas_kdl_msgs/Vector vel  # [m/s]
@@ -204,7 +206,7 @@ float64 yaw                # [rad]
 #### command/position_yaw (tobas_msgs/PositionYaw)
 
 ```txt
-CommandLevel level
+tobas_msgs/CommandLevel level
 tobas_kdl_msgs/Vector pos  # [m]
 float64 yaw                # [rad]
 ```
@@ -212,8 +214,8 @@ float64 yaw                # [rad]
 #### command/velocity_yaw (tobas_msgs/VelocityYaw)
 
 ```txt
-CommandLevel level
-FrameId frame_id
+tobas_msgs/CommandLevel level
+tobas_msgs/FrameId frame_id
 tobas_kdl_msgs/Vector vel  # [m/s]
 float64 yaw                # [rad]
 
@@ -222,7 +224,7 @@ float64 yaw                # [rad]
 #### command/rpy_thrust (tobas_msgs/RollPitchYawThrust)
 
 ```txt
-CommandLevel level
+tobas_msgs/CommandLevel level
 tobas_kdl_msgs/Euler rpy  # [rad]
 float64 thrust            # [N]
 ```
@@ -230,7 +232,7 @@ float64 thrust            # [N]
 #### command/pose_twist_accel (tobas_msgs/PoseTwistAccelCommand)
 
 ```txt
-CommandLevel level
+tobas_msgs/CommandLevel level
 
 tobas_kdl_msgs/Vector pos    # Target global position [m]
 tobas_kdl_msgs/Vector vel    # Target global linear velocity [m/s]
@@ -251,7 +253,7 @@ float64 delta_pitch  # [rad]
 
 #### command/joint_positions (tobas_msgs/JointPositions)
 
-カスタムジョイントに対する位置指令．
+Position commands for custom joints.
 
 ```txt
 string[] name
@@ -260,7 +262,7 @@ float64[] data  # [m or rad]
 
 #### command/joint_velocities (tobas_msgs/JointVelocities)
 
-カスタムジョイントに対する速度指令．
+Velocity commands for custom joints.
 
 ```txt
 string[] name
@@ -269,7 +271,7 @@ float64[] data  # [m/s or rad/s]
 
 #### command/joint_efforts (tobas_msgs/JointEfforts)
 
-カスタムジョイントに対する力指令．
+Effort commands for custom joints.
 
 ```txt
 string[] name
@@ -280,7 +282,7 @@ float64[] data  # [N or Nm]
 
 #### ground_truth/odom (tobas_msgs/Odometry)
 
-起動位置に対する位置，速度，加速度の真値．
+The ground truth of position, velocity, and acceleration relative to the startup location.
 
 ```txt
 std_msgs/Header header
@@ -299,14 +301,14 @@ float64[9] angular_acceleration_covariance  # [rad^2/s^4]
 
 #### ground_truth/wind (tobas_msgs/Wind)
 
-グローバル座標系における風速の真値．
+The ground truth of wind speed in the global coordinate system.
 
 ```txt
 std_msgs/Header header
 tobas_kdl_msgs/Vector vel  # [m/s]
 ```
 
-## サービス
+## Services
 
 ---
 
@@ -314,7 +316,7 @@ tobas_kdl_msgs/Vector vel  # [m/s]
 
 #### gazebo/charge_battery (std_srvs/Empty)
 
-バッテリーをフルチャージする．
+Fully charge the battery.
 
 ```txt
 ---
@@ -322,15 +324,15 @@ tobas_kdl_msgs/Vector vel  # [m/s]
 
 #### gazebo/set_wind_parameters (tobas_gazebo_plugins/SetWindParameters)
 
-シミュレーション中の風を生成するパラメータを設定する．
+Set parameters for generating wind in the simulation.
 
 ```txt
 # Request
-float64 mean_speed         # [m/s] 地面からの高度20ftで測った平均風速
-float64 direction          # [rad] 風向 (ヨー角)
-float64 gust_speed_factor  # [-] 定常風速に対する突風成分の風速の比率
-float64 gust_duration      # [s] 突風の発生時間
-float64 gust_interval      # [s] 突風が過ぎ去ってから次の突風が来るまでの時間
+float64 mean_speed         # [m/s] Average wind speed at 20ft above ground
+float64 direction          # [rad] Wind direction (yaw angle)
+float64 gust_speed_factor  # [-] Ratio of gust wind speed to steady wind speed
+float64 gust_duration      # [s] Duration of the gust
+float64 gust_interval      # [s] Interval between gusts
 
 ---
 
@@ -345,13 +347,11 @@ float64 gust_duration
 float64 gust_interval
 ```
 
-## アクション
+## Actions
 
 ---
 
 #### takeoff_action (tobas_msgs/Takeoff)
-
-離陸する．
 
 ```txt
 # Goal
@@ -377,8 +377,6 @@ int8 UNKNOWN_ERROR = -5
 ```
 
 #### landing_action (tobas_msgs/Land)
-
-着陸する．
 
 ```txt
 # Goal

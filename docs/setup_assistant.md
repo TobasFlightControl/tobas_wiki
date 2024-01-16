@@ -1,14 +1,16 @@
 # Tobas Setup Assistant
 
-Tobas Setup Assistant は，Tobas を用いてドローンを飛ばすのに必要な設定ファイルを生成するための GUI です．
-前ページで作成した URDF を読み込み，プロペラの空気力学や制御器などの URDF には表現されていない項目の設定を行います．
+Tobas Setup Assistant is a GUI tool for generating configuration files necessary to fly drones using Tobas.
+It loads the URDF created on the previous page and configures items not expressed in the URDF,
+such as the aerodynamics of propellers and controllers.
 
-## catkin ワークスペースの作成
+## Create a Catkin Workspace
 
 ---
 
-Tobas Setup Assistant ではユーザの機体で Tobas を使用するのに必要な設定ファイルをまとめた ROS パッケージを作成します．
-それを使うためには catkin ワークスペースが必要であり，以下のコマンドで作成できます:
+Tobas Setup Assistant creates a ROS package containing all the necessary configuration files
+for using Tobas with the user's drone.
+A catkin workspace is required for this, which can be created using the following commands:
 
 ```bash
 $ mkdir -p ~/catkin_ws/src
@@ -16,13 +18,13 @@ $ cd ~/catkin_ws
 $ catkin init
 ```
 
-`catkin_ws`を他の名前に置き換えることもできます．
+You can replace `catkin_ws` with any other name.
 
-## Setup Assistant の起動と URDF のロード
+## Launch the Setup Assistant and Load the URDF
 
 ---
 
-ターミナルから Tobas Setup Assistant を起動します:
+Launch the Tobas Setup Assistant from the terminal:
 
 ```bash
 $ roslaunch tobas_setup_assistant setup_assistant.launch
@@ -30,21 +32,22 @@ $ roslaunch tobas_setup_assistant setup_assistant.launch
 
 ![launch](resources/setup_assistant/launch.png)
 
-`Browse`ボタンを押して先程作成した URDF を選択し，`Load`ボタンを押すと，URDF がロードされます．
-画面左上の`Frames Tree`にはリンク名がツリー状に表示されており，リンク名をクリックすると中央のモデルビューで対応するリンクがハイライトされます．
-画面右上には全ての可動関節名が表示されており，バーを動かすと中央のモデルビューで対応する関節角が変化します．
+Press the `Browse` button to select the URDF you created, and then press `Load`.
+Once the URDF is loaded, the link names are displayed in a tree structure under `Frames Tree` on the top left of the screen.
+Clicking on a link name highlights the corresponding link in the central model view.
+All movable joint names are displayed on the top right,
+and moving the bars changes the corresponding joint angles in the central model view.
 
 ![load](resources/setup_assistant/load.png)
 
-ロードが完了すると画面左のタブがアクティブになります．
-これらのタブを上から順に設定していきます．
+Once loading is complete, the tabs on the left become active.
+You will configure these tabs in order.
 
 ## Battery
 
 ---
 
-バッテリーの設定を行います．
-バッテリーの仕様を見ながら以下のように設定します:
+Configure the battery settings according to its specifications.
 
 ![battery](resources/setup_assistant/battery.png)
 
@@ -52,43 +55,40 @@ $ roslaunch tobas_setup_assistant setup_assistant.launch
 
 ---
 
-推進系 (プロペラ) の設定を行います．
-`Available Links`にプロペラとして利用可能なリンクが表示されています．
-表示されない場合は，URDF Builder でプロペラリンクのジョイントタイプが`Continuous`になっているかどうかを確認してください．
+Configure the propulsion system (propellers). `Available Links` displays links that can be used as propellers.
+If not displayed, check if the joint type of the propeller link in URDF Builder is `Continuous`.
 
 ![propulsion_1](resources/setup_assistant/propulsion_1.png)
 
-リンク名の右端の`Add`ボタンを押すと，モデルビューに推力方向が矢印で表示されると同時にそのプロペラの設定タブが追加されます．
-推力の向きが間違っている場合は，URDF Builder でジョイントの`Axis`を修正してください．
+Pressing the `Add` button next to a link name displays the thrust direction as an arrow in the model view
+and adds a settings tab for that propeller.
+If the thrust direction is incorrect, modify the `Axis` in URDF Builder.
 
 ![propulsion_2](resources/setup_assistant/propulsion_2.png)
 
-`propeller1`の設定を行います．
-スペックシートを見ながら`ESC Settings`と`Blade Geometry`の各項目に適切な値を入力します．
+Configure `propeller1` by entering appropriate values in `ESC Settings` and `Blade Geometry` based on the spec sheet.
 
 ![propulsion_3](resources/setup_assistant/propulsion_3.png)
 
-`Motor Settings`ではモータのダイナミクスに関する設定を行います．
-複数の設定方法から選ぶことができ，`Set from experimental data`が望ましいのですが，
-プロペラ込みのモータの実験データは持っていないため，今回は`Set from motor spec`を選択します．
-スペックシートを見ながら各項目に適切な値を入力します．
+In `Motor Settings`, configure the motor dynamics.
+Although `Set from experimental data` is preferable,
+use `Set from motor spec` if you don't have experimental data for the motor with the propeller.
+Enter appropriate values based on the spec sheet.
 
 ![propulsion_4](resources/setup_assistant/propulsion_4.png)
 
-`Aerodynamics`ではプロペラの空力特性の設定を行います．
-こちらも複数の設定方法から選ぶことができますが，精度の観点から`Set from blade geometry`は勧めません．
-今回は`Set from UIUC propeller data site`を選択します．
+Configure the aerodynamic characteristics of the propeller in `Aerodynamics`.
+For accuracy, Set from blade geometry is not recommended. Use `Set from UIUC propeller data site` instead.
 <a href=https://m-selig.ae.illinois.edu/props/propDB.html target="_blank">UIUC Propeller Data Site</a>
-とは様々なプロペラの空力特性の実験データをまとめたサイトであり，
-例えば<a href=https://www.apcprop.com/ target="_blank">APC</a>のプロペラならば大抵のものはデータを得ることができます．
-とはいえ今回使用している Phantom3 0945 のデータはないため，UIUC の Volume 1 の
-<a href=https://m-selig.ae.illinois.edu/props/volume-1/data/apcsf_9x4.7_static_kt1032.txt target="_blank">9 X 4.7 のデータ</a>
-で代用します．
-Static データをテーブルに転記してください．
+is a compilation of experimental aerodynamic data for various propellers.
+For example, if using an APC propeller, most models' data can be found there.
+However, as the data for the Phantom3 0945 propellers used here is not available, we will use the data for
+<a href=https://m-selig.ae.illinois.edu/props/volume-1/data/apcsf_9x4.7_static_kt1032.txt target="_blank">APC 9 x 4.7</a>
+from UIUC's Volume 1 as a substitute. Transcribe the static data into the table.
 
 ![propulsion_5](resources/setup_assistant/propulsion_5.png)
 
-以下のような CSV ファイルを作成して`Load CSV`からロードすることもできます:
+You can also create a CSV file like the one below and load it using `Load CSV`:
 
 ```csv
 RPM,CT,CP
@@ -110,47 +110,48 @@ RPM,CT,CP
 6768,0.1199,0.0483
 ```
 
-他の 3 枚のプロペラについても設定を行う必要がありますが，回転方向以外は同じなのでコピーします．
-左のタブから順にタブ上部の`Copy from left tab`を押して左のタブの設定をコピーします．
-`propeller1`の設定が他のプロペラにも反映されていることを確認し，各プロペラの`Rotating Direction`を適切に設定します．
-リンク名と位置の対応がわからない場合は，`Frames Tree`のハイライト機能を用いて確認してください．
+You must configure the other three propellers as well,
+but since their settings are the same except for rotation direction, you can copy from one to the others.
+Using the left tabs, copy the settings of each propeller by pressing `Copy from left tab` at the top of each tab.
+Make sure the settings of `propeller1` are reflected in the other propellers
+and set the `Rotating Direction` appropriately for each.
+If you are unsure about the correspondence of link names and positions, use the highlight feature in the `Frames Tree` to verify.
 
 ## Fixed Wing
 
 ---
 
-固定翼の設定を行います．
-今回は回転翼機なのでパスします．
+Configure the fixed-wing settings. Since this is a rotary-wing aircraft, we will skip this step.
 
 ## Custom Joints
 
 ---
 
-推進系，固定翼駄面以外の関節の設定を行います．
-今回はプロペラ以外の可動関節は無いためパスします．
+Configure any joints other than the propulsion system and fixed-wing surfaces.
+As there are no movable joints other than the propellers in this case, we will skip this step.
 
-## オンボードセンサ (IMU, Barometer, GPS)
+## Onboard Sensors (IMU, Barometer, GPS)
 
 ---
 
-9 軸 IMU，気圧センサ，GPS はフライトコントローラに組み込まれています．
-基本的に設定はデフォルトで構いませんが，GNSS レシーバの位置がルートフレームから離れているため，今回 GPS のオフセットだけは修正します．
+The 9-axis IMU, barometer, and GPS are integrated into the flight controller.
+Generally, the default settings are sufficient, but since the GNSS receiver is located away from the root frame,
+we will adjust the GPS offset for this case.
 
 ![gps](resources/setup_assistant/gps.png)
 
-## 追加センサ (Camera, LiDAR, Odometry)
+## Additional Sensors (Camera, LiDAR, Odometry)
 
 ---
 
-カメラ，LiDAR，オドメトリを発行する機器の設定を行います．
-今回はいずれも搭載しないためパスします．
+Configure any equipment that publishes camera, LiDAR, or odometry data.
+Since none of these are mounted in this case, we will skip this step.
 
 ## RC Transmitter
 
 ---
 
-プロポに関する設定を行います．
-`The number of flight modes`を 2 に設定します．
+Configure the settings related to the remote control transmitter. Set `The number of flight modes` to 2.
 
 ![rc_transmitter](resources/setup_assistant/rc_transmitter.png)
 
@@ -158,11 +159,10 @@ RPM,CT,CP
 
 ---
 
-制御器に関する設定を行います．
-コンボボックスを開くと使用可能な制御器が表示されます．
-今回は`Multirotor PID`を選択します．
-`Flight Modes`は`RC Transmitter`タブで設定した個数のフライトモードが表示されています．
-`Flight Mode 1`を`RollPitchYawThrust`に，`Flight Mode 2`を`PosVelAccYaw`に設定します．
+Configure the controller settings. Opening the combo box will display available controllers.
+For this case, select `Multirotor PID`.
+The `Flight Modes` should show the number of flight modes set in the `RC Transmitter` tab.
+Set `Flight Mode 1` to `RollPitchYawThrust` and `Flight Mode 2` to `PosVelAccYaw`.
 
 ![controller](resources/setup_assistant/controller.png)
 
@@ -170,17 +170,18 @@ RPM,CT,CP
 
 ---
 
-状態推定器に関する設定を行います．
-基本的にはデフォルトのままで構いません．
+Configure the state estimator settings.
+The default settings are generally adequate.
 
 ## Simulation
 
 ---
 
-Gazebo のシミュレーション環境の設定を行います．
-`Gravity`は標準重力加速度で固定されています．
-経緯度と海抜高度は，デフォルトでは日本経緯度原点と日本水準原点に設定されています．
-今回はさほど重要ではないためデフォルトのままとします．
+Configure the Gazebo simulation environment settings.
+`Gravity` is fixed at the standard gravitational acceleration.
+The latitude, longitude, and altitude are set by default
+to the Geodetic origin of Japan and the Japan Vertical Datum, respectively.
+Since these are not particularly crucial for this case, we will keep the default settings.
 
 ![simulation](resources/setup_assistant/simulation.png)
 
@@ -188,7 +189,7 @@ Gazebo のシミュレーション環境の設定を行います．
 
 ---
 
-Setup Assistant によって生成される Tobas パッケージの管理者の名前とメールアドレスを入力します．
+Enter the name and email address of the administrator of the Tobas package generated by the Setup Assistant.
 
 ![author_info](resources/setup_assistant/author_info.png)
 
@@ -196,9 +197,10 @@ Setup Assistant によって生成される Tobas パッケージの管理者の
 
 ---
 
-Tobas パッケージを生成するディレクトリとパッケージ名を設定します．
-`Parent Directory`を catkin ワークスペースの`src/`以下に設定し，`Package Name`に適当な名前を入力してください．
-`Generate`ボタンを押すと，指定したディレクトリに Tobas パッケージが生成され，Setup Assistant は自動的にシャットダウンします．
+Set the directory and name for generating the Tobas package.
+Set the `Parent Directory` to under `src/` of your catkin workspace and enter an appropriate name in `Package Name`.
+Pressing the `Generate` button will create the Tobas package in the specified directory,
+and the Setup Assistant will shut down automatically.
 
 ![ros_package](resources/setup_assistant/ros_package.png)
 
@@ -206,7 +208,7 @@ Tobas パッケージを生成するディレクトリとパッケージ名を�
 
 ---
 
-catkin ワークスペース以下に移動し，生成した Tobas パッケージをビルドします:
+Move to the catkin workspace and build the generated Tobas package:
 
 ```bash
 $ cd ~/catkin_ws
