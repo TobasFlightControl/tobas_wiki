@@ -1,12 +1,13 @@
 # Hardware Setup
 
-Now that the simulation has been successfully completed, I will proceed with setting up the real machine.
+Now that you've successfully completed the simulation, it's time to set up the actual drone.
+Here’s a step-by-step guide to help you through the process:
 
-## Build the Real Drone
+## Building the Real Drone
 
 ---
 
-Refer to the following sites for building the real drone:
+Refer to the following resources for guidance on assembling the drone:
 
 - <a href=https://docs.emlid.com/navio2/hardware-setup target="_blank">Hardware setup | Navio2</a>
 - <a href=https://docs.emlid.com/navio2/ardupilot/typical-setup-schemes target="_blank">Typical setup schemes | Navio2</a>
@@ -15,20 +16,21 @@ Refer to the following sites for building the real drone:
 
 Please pay attention to the following points during the build:
 
-### Ensure Motor Rotation Direction Matches Setup Assistant Settings
+### Motor Rotation Direction
 
-The motor rotation direction can be checked in `tobas_f450_config/config/f450.tbsf` under `rotor_x/direction`.
-Ensure that the motors are installed with the correct rotation direction as specified in `rotor_x/link_name`.
+Ensure that the direction of motor rotation matches the settings specified in `tobas_f450_config/config/f450.tbsf`
+under `rotor_x/direction`.
+The motors should be installed to rotate as defined in `rotor_x/link_name`.
 
-### Ensure ESC Pin Numbers Match Setup Assistant Settings
+### ESC Pin Numbers
 
-The ESC pin numbers can be checked in `tobas_f450_config/config/f450.tbsf` under `rotor_x/pin`.
-Make sure these numbers match the pin numbers on the Navio2.
+The ESC (Electronic Speed Controller) pin numbers are listed in `tobas_f450_config/config/f450.tbsf` under `rotor_x/pin`.
+Verify that these numbers correspond to the actual pin numbers on your Navio2.
 
 ### Vibration Damping
 
-To reduce the impact of propeller vibrations on the sensors, implement physical vibration damping measures.
-For instance, you can 3D print and use an
+It's important to minimize the impact of propeller vibrations on the sensors.
+Consider using physical vibration damping methods, such as a 3D printed
 <a href=https://docs.emlid.com/navio2/hardware-setup/#anti-vibration-mount>Anti-vibration mount | Navio2</a>.
 
 ## Network Configuration
@@ -78,7 +80,8 @@ Execute the following command on your PC to establish an SSH connection to the R
 user@pc $ ssh pi@navio
 ```
 
-The password is the same as before, `raspberry`. This allows you to remotely operate the Raspberry Pi.
+The password is the same as before, `raspberry`.
+This allows you to remotely operate the Raspberry Pi.
 
 ## Sending Tobas Package to Raspberry Pi
 
@@ -182,7 +185,8 @@ pi@navio $ su
 root@navio $ /home/pi/tobas/lib/tobas_real/esc_calibration
 ```
 
-Check if the calibration was successful:
+We check if the calibration was successful.
+Execute the following on the Raspberry Pi:
 
 ```bash
 root@navio $ roslaunch tobas_motor_test motors_handler.launch
@@ -220,21 +224,36 @@ to set the PWM range to 1000us ~ 2000us.
 
 ### Measuring Sensor Noise (Optional)
 
-<span style="color: red;"><strong>Warning: This operation involves rotating the motors with the propellers attached.</strong></span>
+#### ⚠️ Important Safety Precautions:
 
-The vibrations caused by the rotation of the propellers can significantly affect the IMU, especially the accelerometer.
-Therefore, measuring the sensor noise with the propellers attached and motors running before flight
-can provide data closer to actual flight conditions, enhancing the accuracy of state estimation.
+- This process involves operating the motors with the propellers attached, which can be dangerous.
+- <span style="color: red;"><strong>Ensure the drone is securely anchored to prevent any movement.</strong></span>
+- Be ready to quickly terminate the program using Ctrl+C if necessary.
 
-Before executing, ensure the following:
+#### Objective
 
-- The battery, ESC, motors, propellers, and Raspberry Pi are correctly connected.
-- <span style="color: red;"><strong>The drone is securely fixed to prevent movement.</strong></span>
+Measuring sensor noise with the propellers attached and motors running
+can offer a more accurate representation of the flight conditions, particularly affecting the IMU and accelerometer.
+This step helps fine-tune the state estimation for the drone.
 
-<span style="color: red;"><strong>Be prepared to immediately stop the program with Ctrl+C</strong></span>
-and then execute the following:
+#### Procedure
+
+Check all connections: Ensure the battery, ESC, motors, propellers, and Raspberry Pi are properly connected.
+
+Open a terminal on the Raspberry Pi (via SSH or directly) and switch to the root user:
 
 ```bash
 pi@navio $ su
+```
+
+Run the sensor noise measurement program:
+
+```bash
 root@navio $ /home/pi/tobas/lib/tobas_real/measure_sensor_noise
 ```
+
+Follow any on-screen instructions and monitor the process closely.
+
+By completing this step, you gather valuable data under conditions that closely mimic actual flight,
+thereby enhancing the overall performance and safety of your drone.
+Remember to always prioritize safety and perform this step in a controlled environment.
