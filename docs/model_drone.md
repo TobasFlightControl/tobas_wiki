@@ -82,7 +82,7 @@ The modeling approach is in line with the previously outlined guidelines.
 Consistent with guideline 1, the quadcopter is segmented into six distinct models representing its rigid bodies:
 four propellers, one battery, and the frame assembly.
 
-### Propeller Modeling
+### Modeling the Propellers
 
 The propellers used are Phantom3 9450 models.
 These are sourced from <a href=https://grabcad.com target="_blank">GrabCAD</a> and imported into Fusion 360.
