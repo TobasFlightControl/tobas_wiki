@@ -1,111 +1,111 @@
 # Gazebo Simulation
 
-To simulate the drone using the Tobas package you created earlier, follow these steps:
+To simulate your drone using the Tobas package you've created, follow these steps:
 
 ## Preliminary Setup
 
 ---
 
-Load the catkin workspace environment variables into the current shell:
+First, you need to load the catkin workspace environment variables into your current shell session:
 
 ```bash
 $ source ~/catkin_ws/devel/setup.bash
 ```
 
-This command needs to be executed every time you open a terminal (or add a new terminal page).
-To avoid this manual step, you can automate it by writing this command to your `~/.bashrc`:
+Remember, this command should be executed each time you open a new terminal session.
+
+To automate this process and avoid manual repetition, you can append this command to your ~/.bashrc file:
 
 ```bash
 $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 ```
 
-## Launch Gazebo Simulation
+## Launching Gazebo Simulation
 
 ---
 
-Start the simulation with the following command:
+Initiate the simulation by running the following command:
 
 ```bash
 $ roslaunch tobas_f450_config gazebo.launch
 ```
 
-The modeled drone will be placed at the origin.
+This command will start the Gazebo simulation, placing the modeled drone at the origin.
 
 ![launch](resources/gazebo_simulation/launch.png)
 
-## Launch Tobas Software
+## Launching Tobas Software
 
 ---
 
-Launch the main software components such as the controller and sensor systems with this command:
+To activate the main software components, such as the controller and the state estimator, use folling command:
 
 ```bash
 $ roslaunch tobas_f450_config bringup.launch
 ```
 
-Once you see a green `[INFO] Controller is ready` message, the drone is ready for flight, and you can operate it using ROS API.
+Wait until you see a green `[INFO] Controller is ready` message.
+This indicates that the drone is prepared for flight and can be operated via the ROS API.
 
 ![bringup](resources/gazebo_simulation/bringup.png)
 
-## Teleoperation
+## Teleoperation Methods
 
 ---
 
 ### Operation via Keyboard
 
-You can operate the drone using your PC's keyboard.
-Execute the following command:
+To control the drone using your PC's keyboard, execute:
 
 ```bash
 $ roslaunch tobas_f450_config keyboard_teleop.launch
 ```
 
-The drone in Gazebo will take off and hover at a certain altitude.
-Instructions for operation will be displayed in the terminal,
-and you can control the drone's position by pressing keys while the terminal is focused.
+This will enable the drone in Gazebo to take off and hover at a certain altitude.
+Follow the instructions displayed in the terminal to control the drone's position using your keyboard.
 
 ![keyboard_teleop](resources/gazebo_simulation/keyboard_teleop.png)
 
 ### Operation via GUI
 
-You can also operate the drone using a GUI.
-Shutdown the previous keyboard_teleop.launch with Ctrl + C, and then run this command:
+Alternatively, you can control the drone using a GUI.
+First, terminate the previous keyboard_teleop.launch (Ctrl + C), then run:
 
 ```bash
 $ roslaunch tobas_f450_config gui_teleop.launch
 
 ```
 
-You can control the drone's position by moving the bars.
-As this is a rotorcraft, you can only control `x`, `y`, `z`, and `yaw`. Direct control of `roll` and `pitch` is not possible.
+This interface allows you to control the drone's position by adjusting the bars.
+Since it's a planar multirotor, you can only control its `x`, `y`, `z`, and `yaw`.
+Direct control of `roll` and `pitch` is not possible.
 
 ![gui_teleop](resources/gazebo_simulation/gui_teleop.png)
 
 ### Operation using ROS API
 
-You can also send commands to the drone using ROS API.
-This is useful when creating applications, as it allows access to drone information from a user's program.
-For more details, see [ROS API](ros_api.md).
+For application development, you can send commands to the drone using the ROS API.
+This enables programmatic access to drone functionalities.
+Refer to [ROS API](ros_api.md) for more details.
 
-First, create a ROS package for placing your drone operation scripts.
+Start by creating a ROS package for your drone operation scripts:
 
 ```bash
 $ cd ~/catkin_ws/src/
 $ catkin_create_pkg my_tobas_example
 ```
 
-After creating your ROS package, proceed with the following steps:
+After creating your package, proceed with the following commands to build it and load it into your shell environment:
 
 ```bash
 $ catkin build my_tobas_example
 $ source ~/catkin_ws/devel/setup.bash
 ```
 
-This will build your new package and load it into your shell environment.
-Next, you will create a script within your ROS package.
-Here's an example of a Python script that uses the `takeoff_action` action for takeoff
+Next, create a script within your ROS package.
+Below is an example Python script that uses the `takeoff_action` action for takeoff
 and the `command/pos_vel_acc_yaw` topic for position commands.
-Please place this script under the my_tobas_example/scripts/ directory.
+Place this script in the `scripts/` directory of your `my_tobas_example` package.
 
 ```python
 #!/usr/bin/env python3
@@ -182,14 +182,14 @@ if __name__ == "__main__":
         rospy.sleep(INTERVAL)
 ```
 
-Grant execution permission to the script.
+Make sure to grant execution permission to your script:
 
 ```bash
 $ chmod u+x ~/catkin_ws/src/my_tobas_example/scripts/command_square_trajectory_node.py
 ```
 
-When the script is executed, the drone will take off and continue moving along the edges of a square.
-Since the topic exists within the drone's namespace (set as `Robot Name` during URDF creation), specify the namespace `__ns`.
+Executing this script will command the drone to take off and fly along the edges of a square.
+To run the script within the drone's namespace, run:
 
 ```bash
 $ rosrun my_tobas_example command_square_trajectory_node.py __ns:=f450
@@ -199,8 +199,8 @@ $ rosrun my_tobas_example command_square_trajectory_node.py __ns:=f450
 
 ---
 
-If necessary, parameters can be adjusted online during flight.
-Launch the adjustment GUI with the following command:
+If you need to adjust parameters during flight, you can do so through a GUI interface.
+Launch the parameter adjustment GUI with:
 
 ```bash
 $ rosrun rqt_reconfigure rqt_reconfigure
@@ -208,6 +208,9 @@ $ rosrun rqt_reconfigure rqt_reconfigure
 
 ![rqt_reconfigure](resources/gazebo_simulation/rqt_reconfigure.png)
 
-All adjustable parameters will be displayed and can be adjusted using sliders, editors, etc.
-Hovering the cursor over the parameter name will display a description of the parameter.
-For more details, please visit<a href=https://wiki.ros.org/rqt_reconfigure>rqt_reconfigure | ROS</a>.
+This interface displays all adjustable parameters, which you can modify using sliders and editors.
+Hovering your cursor over a parameter name will reveal its description.
+For more detailed information, visit <a href=https://wiki.ros.org/rqt_reconfigure>rqt_reconfigure | ROS</a>.
+
+With these steps, you should be able to fully simulate, operate,
+and adjust your drone using the Tobas package in a Gazebo simulation environment.
