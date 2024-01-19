@@ -12,8 +12,7 @@ user@pc $ ssh pi@navio
 Next, activate the RC transmitter and initiate `real.launch` from the Tobas package:
 
 ```bash
-pi@navio $ su
-root@navio $ roslaunch tobas_f450_config real.launch
+pi@navio $ roslaunch tobas_f450_config real.launch
 ```
 
 Just like in the HIL simulation, you can start controlling the drone by toggling the E_STOP (CH5) on the transmitter on and then off. <span style="color: red;"><strong>Remember, reactivating E_STOP will engage an emergency stop, immediately halting all the drone's motors.</strong></span>

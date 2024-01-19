@@ -24,8 +24,7 @@ On the Raspberry Pi, launch the software needed for HIL.
 <span style="color: red;"><strong>Warning: Make sure that the propellers are removed from the motors.</strong></span>
 
 ```bash
-pi@navio $ su
-root@navio $ roslaunch tobas_f450_config hil.launch
+pi@navio $ roslaunch tobas_f450_config hil.launch
 ```
 
 To enable drone control in Gazebo using the RC transmitter, switch the E_STOP (CH5) on the transmitter on and then off.

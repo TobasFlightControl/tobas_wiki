@@ -181,15 +181,14 @@ Verify the following:
 Execute the following and follow the console instructions:
 
 ```bash
-pi@navio $ su
-root@navio $ /home/pi/tobas/lib/tobas_real/esc_calibration
+pi@navio $ /home/pi/tobas/lib/tobas_real/esc_calibration
 ```
 
 We check if the calibration was successful.
 Execute the following on the Raspberry Pi:
 
 ```bash
-root@navio $ roslaunch tobas_motor_test motors_handler.launch
+pi@navio $ roslaunch tobas_motor_test motors_handler.launch
 ```
 
 Execute the following on an external PC:
@@ -240,16 +239,10 @@ This step helps fine-tune the state estimation for the drone.
 
 Check all connections: Ensure the battery, ESC, motors, propellers, and Raspberry Pi are properly connected.
 
-Open a terminal on the Raspberry Pi (via SSH or directly) and switch to the root user:
+Open a terminal on the Raspberry Pi (via SSH or directly) and run the sensor noise measurement program:
 
 ```bash
-pi@navio $ su
-```
-
-Run the sensor noise measurement program:
-
-```bash
-root@navio $ /home/pi/tobas/lib/tobas_real/measure_sensor_noise
+pi@navio $ /home/pi/tobas/lib/tobas_real/measure_sensor_noise
 ```
 
 Follow any on-screen instructions and monitor the process closely.
