@@ -181,7 +181,7 @@ Verify the following:
 Execute the following and follow the console instructions:
 
 ```bash
-pi@navio $ /home/pi/tobas/lib/tobas_real/esc_calibration
+pi@navio $ ~/tobas/lib/tobas_real/esc_calibration
 ```
 
 We check if the calibration was successful.
@@ -242,7 +242,7 @@ Check all connections: Ensure the battery, ESC, motors, propellers, and Raspberr
 Open a terminal on the Raspberry Pi (via SSH or directly) and run the sensor noise measurement program:
 
 ```bash
-pi@navio $ /home/pi/tobas/lib/tobas_real/measure_sensor_noise
+pi@navio $ ~/tobas/lib/tobas_real/measure_sensor_noise
 ```
 
 Follow any on-screen instructions and monitor the process closely.
