@@ -11,8 +11,13 @@ When selecting components for the drone, pay attention to the following:
 
 ### ESC
 
+- Choose an ESC that is compatible with the battery voltage.
 - Choose an ESC that can handle PWM (Pulse Width Modulation) signals from 1000us to 2000us.
 - BLHeli firmware is recommended for its reliability and performance.
+
+### Motor
+
+- Choose a motor that is compatible with the battery voltage.
 
 ### Propeller
 
