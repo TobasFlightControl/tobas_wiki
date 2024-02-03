@@ -54,7 +54,8 @@ if __name__ == "__main__":
     # 離陸アクションの結果を取得
     takeoff_result: TakeoffResult = takeoff_client.get_result()
     if takeoff_result.error_code < 0:
-        rospy.signal_shutdown("Takeoff action failed.")
+        rospy.logerr("Takeoff action failed.")
+        exit()
 
     # コマンドのパブリッシャーを作成
     command_pub = rospy.Publisher("command/pos_vel_acc_yaw", PosVelAccYaw, queue_size=1)
@@ -114,4 +115,6 @@ if __name__ == "__main__":
     land_result: LandResult = land_client.get_result()
     if land_result.error_code < 0:
         rospy.logerr("Landing action failed.")
-        rospy.signal_shutdown("Landing action failed")
+        exit()
+
+    rospy.loginfo("Finished successfully.")
