@@ -29,10 +29,12 @@ if __name__ == "__main__":
     land_client = actionlib.SimpleActionClient("landing_action", LandAction)
 
     # アクションサーバーが起動するのを待つ
+    rospy.loginfo("Waiting for action servers.")
     takeoff_client.wait_for_server()
     land_client.wait_for_server()
 
     # 現在の位置を取得
+    rospy.loginfo("Getting the initial state.")
     init_odom: Odometry = rospy.wait_for_message("odom", Odometry)
     x0 = init_odom.pose.pos.x
     y0 = init_odom.pose.pos.y
