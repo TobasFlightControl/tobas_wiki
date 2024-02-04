@@ -18,6 +18,7 @@ ELEVATION = 3.0  # [m]
 SIDE_LENGTH = 5.0  # [m]
 INTERVAL = 5.0  # [s]
 NUM_CYCLES = 3  # 周回数
+WAIT_FOR_ACTION_SERVER = 10.0  # [s]
 
 
 if __name__ == "__main__":
@@ -30,8 +31,10 @@ if __name__ == "__main__":
 
     # アクションサーバーが起動するのを待つ
     rospy.loginfo("Waiting for action servers.")
-    takeoff_client.wait_for_server()
-    land_client.wait_for_server()
+    if not takeoff_client.wait_for_server(rospy.Duration(WAIT_FOR_ACTION_SERVER)):
+        raise rospy.ROSException("Failed to connect to takeoff action server.")
+    if not land_client.wait_for_server(rospy.Duration(WAIT_FOR_ACTION_SERVER)):
+        raise rospy.ROSException("Failed to connect to landing action server.")
 
     # 現在の位置を取得
     rospy.loginfo("Getting the initial state.")
