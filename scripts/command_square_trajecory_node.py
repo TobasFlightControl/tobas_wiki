@@ -39,9 +39,9 @@ if __name__ == "__main__":
     # 現在の位置を取得
     rospy.loginfo("Getting the initial state.")
     init_odom: Odometry = rospy.wait_for_message("odom", Odometry)
-    x0 = init_odom.pose.pos.x
-    y0 = init_odom.pose.pos.y
-    z0 = init_odom.pose.pos.z
+    x0 = init_odom.frame.trans.x
+    y0 = init_odom.frame.trans.y
+    z0 = init_odom.frame.trans.z
     rospy.loginfo(f"Start position [m]: ({x0}, {y0}, {z0})")
 
     # 軌跡を描く高度
