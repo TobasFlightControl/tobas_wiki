@@ -18,13 +18,13 @@ Please pay attention to the following points during the build:
 
 ### Motor Rotation Direction
 
-Ensure that the direction of motor rotation matches the settings specified in `tobas_f450_config/config/f450.tbsf`
+Ensure that the direction of motor rotation matches the settings specified in `tobas_f450_config/config/drone.tbsf`
 under `rotor_x/direction`.
 The motors should be installed to rotate as defined in `rotor_x/link_name`.
 
 ### ESC Pin Numbers
 
-The ESC (Electronic Speed Controller) pin numbers are listed in `tobas_f450_config/config/f450.tbsf` under `rotor_x/pin`.
+The ESC (Electronic Speed Controller) pin numbers are listed in `tobas_f450_config/config/drone.tbsf` under `rotor_x/pin`.
 Verify that these numbers correspond to the actual pin numbers on your Navio2.
 
 ### Vibration Damping
