@@ -140,7 +140,7 @@ Execute the following on an external PC connected to the Raspberry Pi via SSH.
 Execute the following and follow the console instructions:
 
 ```bash
-pi@navio $ ~/tobas/lib/tobas_real/accel_calibration
+pi@navio $ ~/tobas/lib/tobas_navio_ros/accel_calibration
 ```
 
 ### Magnetometer
@@ -148,7 +148,7 @@ pi@navio $ ~/tobas/lib/tobas_real/accel_calibration
 Execute the following and follow the console instructions:
 
 ```bash
-pi@navio $ ~/tobas/lib/tobas_real/mag_calibration
+pi@navio $ ~/tobas/lib/tobas_navio_ros/mag_calibration
 ```
 
 ### Battery Voltage
@@ -157,7 +157,7 @@ Ensure the battery and Navio2 are correctly connected.
 Execute the following and follow the console instructions:
 
 ```bash
-pi@navio $ ~/tobas/lib/tobas_real/adc_calibration
+pi@navio $ ~/tobas/lib/tobas_navio_ros/adc_calibration
 ```
 
 ### RC Input
@@ -166,7 +166,7 @@ Ensure the RC receiver is correctly connected to Navio2 and that the RC receiver
 Execute the following and follow the console instructions:
 
 ```bash
-pi@navio $ ~/tobas/lib/tobas_real/rcin_calibration
+pi@navio $ ~/tobas/lib/tobas_navio_ros/rcin_calibration
 ```
 
 ### ESC
@@ -181,7 +181,7 @@ Verify the following:
 Execute the following and follow the console instructions:
 
 ```bash
-pi@navio $ ~/tobas/lib/tobas_real/esc_calibration
+pi@navio $ ~/tobas/lib/tobas_navio_ros/esc_calibration
 ```
 
 We check if the calibration was successful.
@@ -242,7 +242,7 @@ Check all connections: Ensure the battery, ESC, motors, propellers, and Raspberr
 Open a terminal on the Raspberry Pi (via SSH or directly) and run the sensor noise measurement program:
 
 ```bash
-pi@navio $ ~/tobas/lib/tobas_real/measure_sensor_noise
+pi@navio $ ~/tobas/lib/tobas_navio_ros/measure_sensor_noise
 ```
 
 Follow any on-screen instructions and monitor the process closely.
