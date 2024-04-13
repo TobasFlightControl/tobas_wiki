@@ -1,3 +1,5 @@
+<a href=https://tobas-wiki-ja.readthedocs.io target="_blank">日本語のドキュメントはこちらです．</a>
+
 # Tobas User Guide
 
 Tobas is a tool designed to assist in the development of drones for complex missions.
